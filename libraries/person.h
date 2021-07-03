@@ -2,7 +2,7 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-#include<conio.h>
+// #include<conio.h>
 using namespace std;
 class Person {
     private :
@@ -31,35 +31,41 @@ class Person {
      void setBD(string bd);
      void setDM(string dm);
      void setEmail(string email);
-     Person(string fname = "",string lname ="",string ncode = "",string bcnum = "",string waddress = "",string haddress = "",string mnum = "",string pnum = "",string fatname = "",string bd = "",string dm = "",string email = "") {
+     void PersonAddToFile ();
 
-     setFname(string fname);
-     setLname(string lname);
-     setNcode(string ncode);
-     setBCnum(string bcnum);
-     setWaddress(string waddress);
-     setHaddress(string haddress);
-     setMnum(string mnum);
-     setPnum(string pnum);
-     setFathname(string fathname);
-     setBD(string bd);
-     setDM(string dm);
-     setEmail(string email);
+     Person(string fname = "",string lname ="",string ncode = "",string bcnum = "",string waddress = "",string haddress = "",string mnum = "",string pnum = "",string fathname = "",string bd = "",string dm = "",string email = "") {
+
+        setFname(fname);
+        setLname(lname);
+        setNcode(ncode);
+        setBCnum(bcnum);
+        setWaddress(waddress);
+        setHaddress(haddress);
+        setMnum(mnum);
+        setPnum(pnum);
+        setFathname(fathname);
+        setBD(bd);
+        setDM(dm);
+        setEmail(email);
+
+        PersonAddToFile();
+
      }
-     string getFname(string fname);   
-     string getLname(string lname);
-     string getNcode(string ncode);
-     string getBCnum(string bcnum);
-     string getWaddress(string waddress);
-     string getHaddress(string haddress);
-     string getMnum(string mnum);
-     string getPnum(string pnum);
-     string getFathname(string fathname);
-     string getBD(string bd);
-     string getDM(string dm);
-     string getEmail(string email);
-     ~Person();
+     string getFname();   
+     string getLname();
+     string getNcode();
+     string getBCnum();
+     string getWaddress();
+     string getHaddress();
+     string getMnum();
+     string getPnum();
+     string getFathname();
+     string getBD();
+     string getDM();
+     string getEmail();
+    
 };
+
 class Worker : public Person {
     private :
     string employment_ID;
@@ -69,14 +75,14 @@ class Worker : public Person {
     void setEID (string eid);
     void setDempl(string dempl);
     void setSal(string sal);
-    Worker (string eid = "",string dempl = "",string sal = "") {
-    setEID (string eid);
-    setDempl(string dempl);
-    setSal(string sal);
+        Worker (string eid = "",string dempl = "",string sal = "") {
+        setEID (eid);
+        setDempl(dempl);
+        setSal(sal);
     }
-    string getEID (string eid);
-    string getDempl(string dempl);
-    string getSal(string sal);
+    string getEID ();
+    string getDempl();
+    string getSal();
     ~Worker();
 };
 
@@ -170,4 +176,8 @@ string Worker::getDempl() {
 }
 string Worker::getSal() {
     return salary;
+}
+
+void Person::PersonAddToFile() {
+    
 }

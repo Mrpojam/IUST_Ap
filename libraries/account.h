@@ -33,6 +33,4 @@ class Account {
     void Withdraw (int _Amount) {
         this->AccountAmount += _Amount;
     }
-
-
 }
