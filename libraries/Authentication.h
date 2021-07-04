@@ -1,14 +1,43 @@
 
-#include"Json.h"
+#include"WritePerson.h"
 
-void ShowLoginMenu () {
+bool ShowLoginMenu () {
     cout << "AccountNumber : ";
     string UserName;
     cin >> UserName;
     cout << "AccountPassword : ";
     string UserPass;
     cin >> UserPass;
-   // Login (UserName, UserPass);
+
+    ifstream Myfile;
+    Myfile.open("Files/Users/Credentials");
+    string credentials;
+    bool exists = false;
+    while (Myfile >> credentials) {
+        string username = "";
+        int i = 0;
+        for (; i < credentials.size(); i++) {
+            if (credentials[i] == '#') break;
+            username += credentials[i];
+        }
+        i++;
+        if (username == UserName) {
+            exists = true;
+            string password = "";
+            for (; i < credentials.size(); i++)
+                password += credentials[i];
+            if (password != UserPass) {
+                cout << "password does not match." << endl;
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }
+    if (!exists)
+        cout << "User does not exists." << endl;
+    return false;
 }
 
 void ShowRegisterMenu () {
@@ -96,9 +125,9 @@ void ShowRegisterMenu () {
     cout << "Enter Password:";
     int password;
     cin >> password;
-    FileAdress = "Files/Users/Credentials" + NewAccount.getNcode();
+    FileAdress = "Files/Users/Credentials";
     MyFile.open(FileAdress);
-    MyFile << password;
+    MyFile << NewAccount.getNcode() << "#" << password << "\n";
 
     /*
         Set date of memebership
