@@ -32,6 +32,7 @@ class Person {
      void setDM(string dm);
      void setEmail(string email);
      void PersonAddToFile ();
+     void ChangeProfile ();
 
      Person(string fname = "",string lname ="",string ncode = "",string bcnum = "",string waddress = "",string haddress = "",string mnum = "",string pnum = "",string fathname = "",string bd = "",string dm = "",string email = "") {
 
@@ -180,4 +181,47 @@ string Worker::getSal() {
 
 void Person::PersonAddToFile() {
     
+}
+void Person::ChangeProfile() {
+    cout<<"Please select to change each section."<<endl;
+    int aq ;
+    cout<<"1.Change Work Address."<<endl<<"2.Change Home Address."<<endl<<"3.Change Mobile Number"<<endl<<"4.Change Phone Number"<<endl<<"5.Change Email."<<endl<<"6.Back."<<endl;
+    cin>>aq;
+    string  GetString;
+    if (aq==1) {
+        cout << "Work Address:";
+        cin >> GetString;
+        setWaddress(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (aq==2) {
+        cout << "Home Adress:";
+        cin >> GetString;
+        setHaddress(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (aq==3) {
+        cout << "Mobile Number:";
+        cin >> GetString;
+        setMnum(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (aq==4) {
+        cout << "Phone Number:";
+        cin >> GetString;
+        setPnum(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (aq==5) {
+        cout << "Email:";
+        cin >>GetString;
+        setEmail(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (aq==6) {
+        return;
+    }
+    else {
+        cout<<"Error!!!"<<endl;
+    }
 }
