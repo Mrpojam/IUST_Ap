@@ -3,8 +3,14 @@
 #include"libraries/Authentication.h"
 using namespace std;
 
+void ShowUserMenu (Person User) {
+    system("clear");
+    cout << "UserMenu" << endl;
+}
+
 int main () {
     while(true) {
+        system("clear");
         cout << "Welcome To The Bank!!!" << endl;
 
         cout << "1)Login\n" << "2)Register" << endl;
@@ -13,9 +19,10 @@ int main () {
         cin >> command;
         system("clear");
         if (command == 1) {
-            bool login = ShowLoginMenu();
-            if (login) {
-                cout << "You logged in sucssussfully" << endl;
+            pair<bool, Person> Login;
+            Login = ShowLoginMenu();
+            if (Login.first) {
+                ShowUserMenu(Login.second);
             }
         }else if (command == 2) {
             ShowRegisterMenu();

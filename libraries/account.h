@@ -1,15 +1,19 @@
+#include"person.h"
+
 class Account {
     private:
-    int AccountNumber;
+    string AccountNumber;
     int AccountAmount;
     string FoundDate;
-    private:
-    Account(int _Number, int _Amount, string _Date) {
+    public:
+    Account(string _Number, int _Amount, string _Date) {
         this->AccountNumber = _Number;
         this->AccountAmount = _Amount;
         this->FoundDate = _Date;
     }
     
+    static int Counter;
+
     string GetShaba () {
         return "IR"+ Id + AccountNumber;
     }
@@ -33,4 +37,11 @@ class Account {
     void Withdraw (int _Amount) {
         this->AccountAmount += _Amount;
     }
+};
+
+void CreateAcoount(Person person, int ammount) {
+    string AccNum = "1000" + person.getNcode();
+    // string DoundDate = ""
+    Account NewAccount(AccNum, ammount, "");
+    
 }

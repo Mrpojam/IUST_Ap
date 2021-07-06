@@ -1,7 +1,10 @@
 
 #include"WritePerson.h"
 
-bool ShowLoginMenu () {
+void ShowUserMenu (Person User);
+
+pair<bool, Person> ShowLoginMenu () {
+   
     cout << "AccountNumber : ";
     string UserName;
     cin >> UserName;
@@ -13,6 +16,7 @@ bool ShowLoginMenu () {
     Myfile.open("Files/Users/Credentials");
     string credentials;
     bool exists = false;
+    Person User;
     while (Myfile >> credentials) {
         string username = "";
         int i = 0;
@@ -28,16 +32,17 @@ bool ShowLoginMenu () {
                 password += credentials[i];
             if (password != UserPass) {
                 cout << "password does not match." << endl;
-                return false;
+                return {false, User};
             }
             else {
-                return true;
+                
+                return {true, User};
             }
         }
     }
     if (!exists)
         cout << "User does not exists." << endl;
-    return false;
+    return {false, User};
 }
 
 void ShowRegisterMenu () {
@@ -115,7 +120,7 @@ void ShowRegisterMenu () {
     string FileData = CreatePersonData(JsonKeys, JsonValues);
 
     string FileAdress = "Files/Users/" + NewAccount.getNcode();
-    cout << FileAdress << endl;
+    
     ofstream MyFile;
     MyFile.open(FileAdress);
     MyFile << FileData;
@@ -126,11 +131,15 @@ void ShowRegisterMenu () {
     int password;
     cin >> password;
     FileAdress = "Files/Users/Credentials";
-    MyFile.open(FileAdress);
+    MyFile.open(FileAdress, ios::out | ios::app);
     MyFile << NewAccount.getNcode() << "#" << password << "\n";
 
     /*
         Set date of memebership
     */
+
+    system("clear");
+
+    ShowUserMenu(NewAccount);
 
 }
