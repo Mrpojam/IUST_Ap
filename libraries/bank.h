@@ -3,11 +3,8 @@
 using namespace std;
 
 #include"WriteData.h"
-// #include"person.h"
 #include"account.h"
 #include"creditcard.h"
-// #include"Authentication.h"
-
 
 class Bank {
     private:
@@ -20,9 +17,28 @@ class Bank {
     // vector<Person> BankPersons;
     // vector<Worker> BankWorkers;
     Worker Boss();
-    // Account Self;
+    Account    Self;
     public:
-    Bank() {
+    Bank();
+    void setfoundDate(string fd);
+    void setid(string idnum);
+    void setbankaddress(string baddress);
+
+    Bank(string fd  ,string idnum  ,string baddress ) {
+        setfoundDate(fd);
+        setid(idnum);
+        setbankaddress(baddress);
+    }
+    string getbankname();
+    string getfoundDate();
+    string getid();
+    string getbankaddress();
+  
+};
+
+void CreateWorker (Bank bank, string type);
+
+ Bank::Bank() {
         
         vector<string> keys;
         vector<string> values;
@@ -52,45 +68,61 @@ class Bank {
         string FileData = CreateData(keys, values);
 
         ofstream Myfile;
-        Myfile.open("./Files/Banks" + this->Id);
+        Myfile.open("./Files/Banks/" + this->Id);
         Myfile << FileData;
 
-        Account *Self = new Account();
+        long long Getlonglong;
+        vector<string> JsonKeys;
+        vector<string> JsonValues;
 
-        Self->setAccountAmount(1000000000);
-        Self->setAccountNumber("100" + this->Id);
-        Self->setFoundDate(this->FoundDate);
 
+        JsonKeys.push_back("nnum");
+        JsonValues.push_back("Bank"+this->getid());
+
+
+
+        JsonKeys.push_back("accn");
+        JsonValues.push_back("1000" + this->getid());
+        Self.setAccountNumber("1000" + this->getid());
+
+
+        JsonKeys.push_back("accam");
+        JsonValues.push_back("1000000000");
+        Self.setAccountAmount(1000000000);
+
+
+        JsonKeys.push_back("fdt");
+        JsonValues.push_back(this->FoundDate);
+        Self.setFoundDate(this->FoundDate);
+
+
+
+        string filedata = CreateData(JsonKeys, JsonValues);
+        string fileadress = "Files/Accounts/" + ("1000" + this->getid());
+        ofstream Fin;
+        Fin.open(fileadress);
+        Fin << filedata;
+        Fin.close();
         vector<string> acckeys;
         vector<string> accvalues;
+
 
         acckeys.push_back("num");
         acckeys.push_back("amount");
         acckeys.push_back("date");
 
-        accvalues.push_back(Self->getAccountNumber());
-        accvalues.push_back(to_string(Self->getAccountAmount()));
-        accvalues.push_back(Self->getFoundDate());
 
-        this->BankAccounts.push_back(*Self);
+        accvalues.push_back(Self.getAccountNumber());
+        accvalues.push_back(to_string(Self.getAccountAmount()));
+        accvalues.push_back(Self.getFoundDate());
 
+        system("clear");
+
+        cout << "Register Boss:" << endl;
+
+        CreateWorker(*this, "boss");
         
     }
-    void setfoundDate(string fd);
-    void setid(string idnum);
-    void setbankaddress(string baddress);
-
-    Bank(string fd = "" ,string idnum = "" ,string baddress = "") {
-        setfoundDate(fd);
-        setid(idnum);
-        setbankaddress(baddress);
-    }
-    string getbankname();
-    string getfoundDate();
-    string getid();
-    string getbankaddress();
-  
-};
 
 void Bank::setfoundDate(string fd) {
     FoundDate = fd;

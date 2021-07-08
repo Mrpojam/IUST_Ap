@@ -10,43 +10,44 @@ void ShowUserMenu (Person User) {
     }
 }
 
+
+
 vector<Bank> branches;
 
 int main () {
 
     while (true) {
-        cout << "Choose a branch" << endl;
-        for (int i = 0; i < branches.size(); i++) {
-            cout << i+1 << ")";// << branches[i].getid() << endl;
-        }
-        cout << "c)Create Branch" << endl;
-        char command;
+        cout << "1)Login User\n2)Register New User\n3)Create New bank branch\n" << endl;
+
+        int command;
+
+        cout << "Enter command number :";
         cin >> command;
-        if (command == 'c') {
-            
+        if (command == 1) {
+            pair<bool, Person> Login;
+            Login = ShowLoginMenu();
+        if (Login.first) {
+                ShowUserMenu(Login.second);
+            }
+        }else if (command == 2) {
+            ShowRegisterMenu();
+        }
+        else if (command == 3) {
+            cout << "c)Create Branch" << endl;
+            char command;
+            cin >> command;
+            if (command == 'c') {
+                Bank *newBank = new Bank();
+                branches.push_back(*newBank);
+                system("clear");
+            }
         }
     }
 
     while(true) {
         system("clear");
-        cout << "Welcome To The Bank!!!" << endl;
-
-        cout << "1)Login\n2)Register\n3)Exit" << endl;
-        cout << "Enter Command: ";
-        int command;
-        cin >> command;
-        system("clear");
-        if (command == 1) {
-            pair<bool, Person> Login;
-            Login = ShowLoginMenu();
-            if (Login.first) {
-                ShowUserMenu(Login.second);
-            }
-        }else if (command == 2) {
-            ShowRegisterMenu();
-        }else if (command == 3) {
-            return 0;
-        }
+      
+      
     }
     return 0;
 }

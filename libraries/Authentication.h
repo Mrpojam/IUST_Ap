@@ -243,7 +243,7 @@ void CreateWorker (Bank bank, string type) {
 
     string FileData = CreateData(keys, values);
 
-    string FileAddress = "/Files/Workers/" + NewWorker->getNcode();
+    string FileAddress = "Files/Workers/" + NewWorker->getNcode();
   
     ofstream MyFile;
     MyFile.open(FileAddress);
