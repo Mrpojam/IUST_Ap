@@ -1,8 +1,4 @@
-#include<bits/stdc++.h>
-
-#include"libraries/bank.h"
-
-using namespace std;
+#include"libraries/Authentication.h"
 
 void ShowUserMenu (Person User) {
     while (true) {

@@ -1,5 +1,5 @@
 
-#include"WritePerson.h"
+#include"bank.h"
 
 void ShowUserMenu (Person User);
 
@@ -48,76 +48,76 @@ pair<bool, Person> ShowLoginMenu () {
 void ShowRegisterMenu () {
     Person NewAccount;
     string GetString;
-    vector<string> JsonKeys;
-    vector<string> JsonValues;
+    vector<string> keys;
+    vector<string> values;
 
     cout << "First Name:";
     cin >> GetString;
-    JsonKeys.push_back("fName");
-    JsonValues.push_back(GetString);
+    keys.push_back("fName");
+    values.push_back(GetString);
     NewAccount.setFname(GetString);
 
     cout << "Last Name:";
     cin >> GetString;
-    JsonKeys.push_back("lName");
-    JsonValues.push_back(GetString);
+    keys.push_back("lName");
+    values.push_back(GetString);
     NewAccount.setLname(GetString);
 
     cout << "National Code:";
     cin >> GetString;
-    JsonKeys.push_back("nCode");
-    JsonValues.push_back(GetString);
+    keys.push_back("nCode");
+    values.push_back(GetString);
     NewAccount.setNcode(GetString);
 
     cout << "Birth Certificate Number:";
     cin >> GetString;
-    JsonKeys.push_back("BirthCerNum");
-    JsonValues.push_back(GetString);
+    keys.push_back("BirthCerNum");
+    values.push_back(GetString);
     NewAccount.setBCnum(GetString);
 
     cout << "Work Address:";
     cin >> GetString;
-    JsonKeys.push_back("workAddrr");
-    JsonValues.push_back(GetString);
+    keys.push_back("workAddrr");
+    values.push_back(GetString);
     NewAccount.setWaddress(GetString);
 
     cout << "Home Adress:";
     cin >> GetString;
-    JsonKeys.push_back("homeAddrr");
-    JsonValues.push_back(GetString);
+    keys.push_back("homeAddrr");
+    values.push_back(GetString);
     NewAccount.setHaddress(GetString);
 
     cout << "Mobile Number:";
     cin >> GetString;
-    JsonKeys.push_back("mobile");
-    JsonValues.push_back(GetString);
+    keys.push_back("mobile");
+    values.push_back(GetString);
     NewAccount.setMnum(GetString);
 
     cout << "Phone Number:";
     cin >> GetString;
-    JsonKeys.push_back("phone");
-    JsonValues.push_back(GetString);
+    keys.push_back("phone");
+    values.push_back(GetString);
     NewAccount.setMnum(GetString);
 
     cout << "Father\'s Name:";
     cin >> GetString;
-    JsonKeys.push_back("father");
-    JsonValues.push_back(GetString);
+    keys.push_back("father");
+    values.push_back(GetString);
     NewAccount.setFathname(GetString);
 
     cout << "Date Of Birth:";
     cin >> GetString;
-    JsonKeys.push_back("birth");
-    JsonValues.push_back(GetString);
+    keys.push_back("birth");
+    values.push_back(GetString);
     NewAccount.setBD(GetString);
 
     cout << "Email:";
     cin >> GetString;
-    JsonKeys.push_back("email");
-    JsonValues.push_back(GetString);
+    keys.push_back("email");
+    values.push_back(GetString);
     NewAccount.setEmail(GetString);
 
-    string FileData = CreatePersonData(JsonKeys, JsonValues);
+    string FileData = CreateData(keys, values);
 
     string FileAdress = "Files/Users/" + NewAccount.getNcode();
     
@@ -141,5 +141,114 @@ void ShowRegisterMenu () {
     system("clear");
 
     ShowUserMenu(NewAccount);
+
+}
+
+void CreateWorker (Bank bank, string type) {
+    string GetString;
+    vector<string> keys;
+    vector<string> values;
+
+    Worker NewWorker;
+
+    keys.push_back("bankid");
+    values.push_back(bank.getID());
+
+    keys.push_back("type");
+    values.push_back(type);
+
+    cout << "First Name:";
+    cin >> GetString;
+    keys.push_back("fName");
+    values.push_back(GetString);
+    NewWorker.setFname(GetString);
+
+    cout << "Last Name:";
+    cin >> GetString;
+    keys.push_back("lName");
+    values.push_back(GetString);
+    NewWorker.setLname(GetString);
+
+    cout << "National Code:";
+    cin >> GetString;
+    keys.push_back("nCode");
+    values.push_back(GetString);
+    NewWorker.setNcode(GetString);
+
+    cout << "Birth Certificate Number:";
+    cin >> GetString;
+    keys.push_back("BirthCerNum");
+    values.push_back(GetString);
+    NewWorker.setBCnum(GetString);
+
+    cout << "Work Address:";
+    cin >> GetString;
+    keys.push_back("workAddrr");
+    values.push_back(GetString);
+    NewWorker.setWaddress(GetString);
+
+    cout << "Home Adress:";
+    cin >> GetString;
+    keys.push_back("homeAddrr");
+    values.push_back(GetString);
+    NewWorker.setHaddress(GetString);
+
+    cout << "Mobile Number:";
+    cin >> GetString;
+    keys.push_back("mobile");
+    values.push_back(GetString);
+    NewWorker.setMnum(GetString);
+
+    cout << "Phone Number:";
+    cin >> GetString;
+    keys.push_back("phone");
+    values.push_back(GetString);
+    NewWorker.setMnum(GetString);
+
+    cout << "Father\'s Name:";
+    cin >> GetString;
+    keys.push_back("father");
+    values.push_back(GetString);
+    NewWorker.setFathname(GetString);
+
+    cout << "Date Of Birth:";
+    cin >> GetString;
+    keys.push_back("birth");
+    values.push_back(GetString);
+    NewWorker.setBD(GetString);
+
+    cout << "Email:";
+    cin >> GetString;
+    keys.push_back("email");
+    values.push_back(GetString);
+    NewWorker.setEmail(GetString);
+
+    cout << "Worker ID:";
+    cin >> GetString;
+    keys.push_back("id");
+    values.push_back(GetString);
+    NewWorker.setEID(GetString);
+    
+    cout << "Date of Employment:";
+    cin >> GetString;
+    keys.push_back("empdate");
+    values.push_back(GetString);
+    NewWorker.setDempl(GetString);
+
+    cout << "Salary:";
+    cin >> GetString;
+    keys.push_back("salary");
+    values.push_back(GetString);
+    NewWorker.setSal(GetString);
+
+    string FileData = CreateData(keys, values);
+
+    string FileAddress = "/Files/Workers/" + NewWorker.getNcode();
+  
+    ofstream MyFile;
+    MyFile.open(FileAddress);
+    MyFile << FileData;
+    MyFile.close();
+
 
 }

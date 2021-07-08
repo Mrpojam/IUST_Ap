@@ -1,9 +1,3 @@
-//Ahmadreza Rahnama 99441164
-#include<iostream>
-#include<iomanip>
-#include<string>
-// #include<conio.h>
-using namespace std;
 class Person {
     private :
     string first_name;
@@ -76,6 +70,7 @@ class Worker : public Person {
     void setEID (string eid);
     void setDempl(string dempl);
     void setSal(string sal);
+    void Change_Worker_Profile ();
         Worker (string eid = "",string dempl = "",string sal = "") {
         setEID (eid);
         setDempl(dempl);
@@ -228,6 +223,57 @@ void Person::ChangeProfile() {
         cout<<"Updated Successfully!!"<<endl;
     }
     if (aq==6) {
+        return;
+    }
+    else {
+        cout<<"Error!!!"<<endl;
+    }
+}
+void Worker::Change_Worker_Profile() {
+
+    cout<<"Please select to change each section."<<endl;
+    int Account ;
+    cout<<"1.Change Work Address."<<endl<<"2.Change Home Address."<<endl<<"3.Change Mobile Number"<<endl<<"4.Change Phone Number"<<endl<<"5.Change Email."<<endl<<"6.Change Salary"<<endl<<"7.Back."<<endl;
+    int al;
+    cin>>al;
+    string  GetString;
+    if (al==1) {
+        cout << "Work Address:";
+        cin >> GetString;
+        setWaddress(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (al==2) {
+        cout << "Home Adress:";
+        cin >> GetString;
+        setHaddress(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (al==3) {
+        cout << "Mobile Number:";
+        cin >> GetString;
+        setMnum(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (al==4) {
+        cout << "Phone Number:";
+        cin >> GetString;
+        setPnum(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (al==5) {
+        cout << "Email:";
+        cin >>GetString;
+        setEmail(GetString);
+        cout<<"Updated Successfully!!"<<endl;
+    }
+    if (al==6) {
+        cout<<"Salary:";
+        cin>>GetString;
+        setSal(GetString);
+        cout<<"Salary Updated Successfully!!"<<endl;
+    }
+    if (al==7) {
         return;
     }
     else {
