@@ -1,4 +1,3 @@
-#include<string>
 
 /*
 string ExtractJson(string Jtoken, string Class) {
@@ -18,7 +17,7 @@ string ExtractJson(string Jtoken, string Class) {
     return ret;
 }*/
 
-string CreatePersonData(vector<string> keys, vector<string> values) {
+string CreateData(vector<string> keys, vector<string> values) {
     string Jtoken;
     for (int i = 0; i < keys.size(); i++) {
         Jtoken += keys[i];

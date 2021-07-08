@@ -86,6 +86,15 @@ class Worker : public Person {
     string getSal();
     ~Worker();
 };
+class Boss : public Worker {
+
+};
+class Counter_Manager : public Worker {
+
+};
+class Cashier : public Worker {
+
+};
 
 void Person::setFname(string fname) {
     first_name = fname;
