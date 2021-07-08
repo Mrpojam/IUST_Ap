@@ -12,7 +12,9 @@ class Card {
         this->PassCode1 = p1;
         this->PassCode2 = p2;
     }
-    Card();
+    Card() {
+        return;
+    };
     void setCardN(string cardn);
     void setCVV2(string cvv2);
     void setExpireD(string expired);

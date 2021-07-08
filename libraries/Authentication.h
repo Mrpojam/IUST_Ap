@@ -133,7 +133,7 @@ void ShowRegisterMenu () {
     FileAdress = "Files/Users/Credentials";
     MyFile.open(FileAdress, ios::out | ios::app);
     MyFile << NewAccount.getNcode() << "#" << password << "\n";
-
+    MyFile.close();
     /*
         Set date of memebership
     */
@@ -149,10 +149,10 @@ void CreateWorker (Bank bank, string type) {
     vector<string> keys;
     vector<string> values;
 
-    Worker NewWorker;
+    Worker *NewWorker = new Worker("12");
 
     keys.push_back("bankid");
-    values.push_back(bank.getID());
+    values.push_back(bank.getid());
 
     keys.push_back("type");
     values.push_back(type);
@@ -161,94 +161,101 @@ void CreateWorker (Bank bank, string type) {
     cin >> GetString;
     keys.push_back("fName");
     values.push_back(GetString);
-    NewWorker.setFname(GetString);
+    NewWorker->setFname(GetString);
 
     cout << "Last Name:";
     cin >> GetString;
     keys.push_back("lName");
     values.push_back(GetString);
-    NewWorker.setLname(GetString);
+    NewWorker->setLname(GetString);
 
     cout << "National Code:";
     cin >> GetString;
     keys.push_back("nCode");
     values.push_back(GetString);
-    NewWorker.setNcode(GetString);
+    NewWorker->setNcode(GetString);
 
     cout << "Birth Certificate Number:";
     cin >> GetString;
     keys.push_back("BirthCerNum");
     values.push_back(GetString);
-    NewWorker.setBCnum(GetString);
+    NewWorker->setBCnum(GetString);
 
     cout << "Work Address:";
     cin >> GetString;
     keys.push_back("workAddrr");
     values.push_back(GetString);
-    NewWorker.setWaddress(GetString);
+    NewWorker->setWaddress(GetString);
 
     cout << "Home Adress:";
     cin >> GetString;
     keys.push_back("homeAddrr");
     values.push_back(GetString);
-    NewWorker.setHaddress(GetString);
+    NewWorker->setHaddress(GetString);
 
     cout << "Mobile Number:";
     cin >> GetString;
     keys.push_back("mobile");
     values.push_back(GetString);
-    NewWorker.setMnum(GetString);
+    NewWorker->setMnum(GetString);
 
     cout << "Phone Number:";
     cin >> GetString;
     keys.push_back("phone");
     values.push_back(GetString);
-    NewWorker.setMnum(GetString);
+    NewWorker->setMnum(GetString);
 
     cout << "Father\'s Name:";
     cin >> GetString;
     keys.push_back("father");
     values.push_back(GetString);
-    NewWorker.setFathname(GetString);
+    NewWorker->setFathname(GetString);
 
     cout << "Date Of Birth:";
     cin >> GetString;
     keys.push_back("birth");
     values.push_back(GetString);
-    NewWorker.setBD(GetString);
+    NewWorker->setBD(GetString);
 
     cout << "Email:";
     cin >> GetString;
     keys.push_back("email");
     values.push_back(GetString);
-    NewWorker.setEmail(GetString);
+    NewWorker->setEmail(GetString);
 
     cout << "Worker ID:";
     cin >> GetString;
     keys.push_back("id");
     values.push_back(GetString);
-    NewWorker.setEID(GetString);
+    NewWorker->setEID(GetString);
     
     cout << "Date of Employment:";
     cin >> GetString;
     keys.push_back("empdate");
     values.push_back(GetString);
-    NewWorker.setDempl(GetString);
+    NewWorker->setDempl(GetString);
 
     cout << "Salary:";
     cin >> GetString;
     keys.push_back("salary");
     values.push_back(GetString);
-    NewWorker.setSal(GetString);
+    NewWorker->setSal(GetString);
 
     string FileData = CreateData(keys, values);
 
-    string FileAddress = "/Files/Workers/" + NewWorker.getNcode();
+    string FileAddress = "/Files/Workers/" + NewWorker->getNcode();
   
     ofstream MyFile;
     MyFile.open(FileAddress);
     MyFile << FileData;
     MyFile.close();
 
+    cout << "Enter Password:";
+    int password;
+    cin >> password;
+    FileAddress = "Files/Users/Credentials";
+    MyFile.open(FileAddress, ios::out | ios::app);
+    MyFile << NewWorker->getNcode() << "#" << password << "\n";
+    MyFile.close();
 
 }

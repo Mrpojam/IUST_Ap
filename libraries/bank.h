@@ -3,7 +3,7 @@
 using namespace std;
 
 #include"WriteData.h"
-#include"person.h"
+// #include"person.h"
 #include"account.h"
 #include"creditcard.h"
 // #include"Authentication.h"
@@ -16,11 +16,11 @@ class Bank {
     string Id;
     string BankAddress;
     vector<Account> BankAccounts;
-    vector<Card> BankCards;
-    vector<Person> BankPersons;
-    vector<Worker> BankWorkers;
-    Worker Boss;
-
+    // vector<Card> BankCards;
+    // vector<Person> BankPersons;
+    // vector<Worker> BankWorkers;
+    Worker Boss();
+    // Account Self;
     public:
     Bank() {
         
@@ -75,5 +75,41 @@ class Bank {
         this->BankAccounts.push_back(*Self);
 
         
-    }   
+    }
+    void setfoundDate(string fd);
+    void setid(string idnum);
+    void setbankaddress(string baddress);
+
+    Bank(string fd = "" ,string idnum = "" ,string baddress = "") {
+        setfoundDate(fd);
+        setid(idnum);
+        setbankaddress(baddress);
+    }
+    string getbankname();
+    string getfoundDate();
+    string getid();
+    string getbankaddress();
+  
 };
+
+void Bank::setfoundDate(string fd) {
+    FoundDate = fd;
+}
+void Bank::setid(string idnum) {
+    Id = idnum;
+}
+void Bank::setbankaddress(string baddress) {
+    BankAddress = baddress;
+}
+string Bank::getbankname() {
+    return BankName;
+}
+string Bank::getfoundDate() {
+    return FoundDate;
+}
+string Bank::getid() {
+    return Id;
+}
+string Bank::getbankaddress() {
+    return BankAddress;
+}

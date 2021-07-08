@@ -1,4 +1,5 @@
 
+#include"person.h"
 class Account {
     private:
     string AccountNumber;
@@ -10,11 +11,13 @@ class Account {
         this->AccountAmount = _Amount;
         this->FoundDate = _Date;
     }
-    Account();
+    Account() {
+        return;
+    };
      void setAccountNumber(string accn);
      void setAccountAmount(long long accam);
      void setFoundDate(string fdt);
-     void ChangeAccount();
+     void ChangeAccount(Person person);
     
     string getAccountNumber();
     long long getAccountAmount();
@@ -38,6 +41,8 @@ class Account {
     void Withdraw (long long _Amount) {
         this->AccountAmount += _Amount;
     }
+
+    void UpdateFile(Person person);
 };
 
 void Account::setAccountNumber(string accn) {
@@ -58,47 +63,51 @@ long long Account::getAccountAmount() {
 string Account::getFoundDate() {
     return FoundDate;
 }
-void CreateAcoount(Person person, long long ammount) {
+void CreateAcount(Person person, long long ammount) {
     string AccNum = "1000" + person.getNcode();
     // string DoundDate = ""
     Account NewAccount(AccNum, ammount, "");
     
 }
 
-void ShowAccountMenu () {
-    Account NewAccount;
+void ShowAccountMenu (Person person) {
+    Account *NewAccount = new Account();
     string GetString;
     long long Getlonglong;
     vector<string> JsonKeys;
     vector<string> JsonValues;
 
+    JsonKeys.push_back("nnum");
+    JsonValues.push_back(person.getNcode());
+
     cout << "Account Number:";
     cin >> GetString;
     JsonKeys.push_back("accn");
     JsonValues.push_back(GetString);
-    NewAccount.setAccountNumber(GetString);
+    NewAccount->setAccountNumber(GetString);
 
     cout << "Account Amount:";
     cin >> Getlonglong;
     JsonKeys.push_back("accam");
     JsonValues.push_back(to_string(Getlonglong));
-    NewAccount.setAccountAmount(Getlonglong);
+    NewAccount->setAccountAmount(Getlonglong);
 
     cout << "Found Date:";
     cin >> GetString;
     JsonKeys.push_back("fdt");
     JsonValues.push_back(GetString);
-    NewAccount.setFoundDate(GetString);
+    NewAccount->setFoundDate(GetString);
 
 
     string filedata = CreateData(JsonKeys, JsonValues);
-    string fileadress = "Files/Users/" + NewAccount.getAccountNumber();
+    string fileadress = "Files/Accounts/" + NewAccount->getAccountNumber();
     ofstream Fin;
     Fin.open(fileadress);
     Fin << filedata;
     Fin.close();
 }
-void Account::ChangeAccount() {
+
+void Account::ChangeAccount(Person person) {
     cout<<"Please select to change each section."<<endl;
     int aq ;
     cout<<"1.Change Account Number."<<endl<<"2.Change Account Amount."<<endl<<"3.Back."<<endl;
@@ -123,4 +132,29 @@ void Account::ChangeAccount() {
     else {
         cout<<"Error!!!"<<endl;
     }
+    UpdateFile(person);
+}
+
+void Account::UpdateFile(Person person) {
+     vector<string> JsonKeys;
+    vector<string> JsonValues;
+
+    JsonKeys.push_back("nnum");
+    JsonValues.push_back(person.getNcode());
+
+    JsonKeys.push_back("accn");
+    JsonValues.push_back(this->AccountNumber);
+
+    JsonKeys.push_back("accam");
+    JsonValues.push_back(to_string(this->AccountAmount));
+    
+    JsonKeys.push_back("fdt");
+    JsonValues.push_back(this->FoundDate);
+
+    string filedata = CreateData(JsonKeys, JsonValues);
+    string fileadress = "Files/Accounts/" + this->getAccountNumber();
+    ofstream Fin;
+    Fin.open(fileadress);
+    Fin << filedata;
+    Fin.close();
 }

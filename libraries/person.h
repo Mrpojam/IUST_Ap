@@ -43,7 +43,6 @@ class Person {
         setDM(dm);
         setEmail(email);
 
-        PersonAddToFile();
 
      }
      string getFname();   
@@ -58,6 +57,8 @@ class Person {
      string getBD();
      string getDM();
      string getEmail();
+
+     void UpdateFile();
     
 };
 
@@ -76,10 +77,12 @@ class Worker : public Person {
         setDempl(dempl);
         setSal(sal);
     }
+    
     string getEID ();
     string getDempl();
     string getSal();
     ~Worker();
+    void UpdateFile();
 };
 class Boss : public Worker {
 
@@ -183,9 +186,6 @@ string Worker::getSal() {
     return salary;
 }
 
-void Person::PersonAddToFile() {
-    
-}
 void Person::ChangeProfile() {
     cout<<"Please select to change each section."<<endl;
     int aq ;
@@ -228,7 +228,58 @@ void Person::ChangeProfile() {
     else {
         cout<<"Error!!!"<<endl;
     }
+    UpdateFile();
 }
+
+void Person::UpdateFile() {
+    vector<string> keys;
+    vector<string> values;
+
+    keys.push_back("fName");
+    values.push_back(this->first_name);
+    
+    keys.push_back("lName");
+    
+    values.push_back(this->last_name);
+
+    keys.push_back("nCode");
+    values.push_back(this->national_code);
+
+    keys.push_back("BirthCerNum");
+    values.push_back(this->birth_certificate_number);
+    
+    keys.push_back("workAddrr");
+    values.push_back(this->work_address);
+
+    keys.push_back("homeAddrr");
+    values.push_back(this->work_address);
+
+    keys.push_back("mobile");
+    values.push_back(this->home_address);
+
+    keys.push_back("phone");
+    values.push_back(this->phone_number);
+
+    keys.push_back("father");
+    values.push_back(this->fathers_name);
+
+    keys.push_back("birth");
+    values.push_back(this->date_of_birth);
+
+    keys.push_back("email");
+    values.push_back(this->email_address);
+
+    string FileData = CreateData(keys, values);
+
+    string FileAdress = "Files/Users/" + this->getNcode();
+    
+    ofstream MyFile;
+    MyFile.open(FileAdress);
+    MyFile << FileData;
+    MyFile.close();
+   
+}
+
 void Worker::Change_Worker_Profile() {
 
     cout<<"Please select to change each section."<<endl;
@@ -279,4 +330,65 @@ void Worker::Change_Worker_Profile() {
     else {
         cout<<"Error!!!"<<endl;
     }
+
+    UpdateFile();
+}
+
+void Worker::UpdateFile() {
+
+    vector<string> keys;
+    vector<string> values;
+
+    keys.push_back("fName");
+    values.push_back(this->getFname());
+    
+    keys.push_back("lName");
+    
+    values.push_back(this->getLname());
+
+    keys.push_back("nCode");
+    values.push_back(this->getNcode());
+
+    keys.push_back("BirthCerNum");
+    values.push_back(this->getBCnum());
+    
+    keys.push_back("workAddrr");
+    values.push_back(this->getWaddress());
+
+    keys.push_back("homeAddrr");
+    values.push_back(this->getHaddress());
+
+    keys.push_back("mobile");
+    values.push_back(this->getMnum());
+
+    keys.push_back("phone");
+    values.push_back(this->getPnum());
+
+    keys.push_back("father");
+    values.push_back(this->getFathname());
+
+    keys.push_back("birth");
+    values.push_back(this->getBD());
+
+    keys.push_back("email");
+    values.push_back(this->getEmail());
+
+    keys.push_back("id");
+    values.push_back(this->getEID());
+  
+    keys.push_back("empdate");
+    values.push_back(this->getDempl());
+
+    keys.push_back("salary");
+    values.push_back(this->getSal());
+
+    string FileData = CreateData(keys, values);
+
+    string FileAddress = "/Files/Workers/" + this->getNcode();
+  
+    ofstream MyFile;
+    MyFile.open(FileAddress);
+    MyFile << FileData;
+    MyFile.close();
+
 }
