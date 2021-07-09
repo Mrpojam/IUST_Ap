@@ -261,3 +261,45 @@ void ShowRegisterMenuWorker (Bank bank, string type) {
     MyFile.close();
 
 }
+
+pair<bool, Person> ShowLoginMenuWorker () {
+   system("clear");
+    cout << "AccountNumber : ";
+    string UserName;
+    cin >> UserName;
+    cout << "AccountPassword : ";
+    string UserPass;
+    cin >> UserPass;
+
+    ifstream Myfile;
+    Myfile.open("Files/Workers/Credentials");
+    string credentials;
+    bool exists = false;
+    Person User;
+    while (Myfile >> credentials) {
+        string username = "";
+        int i = 0;
+        for (; i < credentials.size(); i++) {
+            if (credentials[i] == '#') break;
+            username += credentials[i];
+        }
+        i++;
+        if (username == UserName) {
+            exists = true;
+            string password = "";
+            for (; i < credentials.size(); i++)
+                password += credentials[i];
+            if (password != UserPass) {
+                cout << "password does not match." << endl;
+                return {false, User};
+            }
+            else {
+                
+                return {true, User};
+            }
+        }
+    }
+    if (!exists)
+        cout << "User does not exists." << endl;
+    return {false, User};
+}
