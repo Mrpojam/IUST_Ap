@@ -19,6 +19,10 @@ class Bank {
     Worker Boss();
     Account    Self;
     public:
+    Bank(string type) {
+        if (type == "CreateNULL");
+            return;
+    }
     Bank();
     void setfoundDate(string fd);
     void setid(string idnum);
@@ -36,7 +40,7 @@ class Bank {
   
 };
 
-void CreateWorker (Bank bank, string type);
+void ShowRegisterMenuWorker (Bank bank, string type);
 
  Bank::Bank() {
         
@@ -120,8 +124,12 @@ void CreateWorker (Bank bank, string type);
 
         cout << "Register Boss:" << endl;
 
-        CreateWorker(*this, "boss");
-        
+        ShowRegisterMenuWorker(*this, "boss");
+
+        ofstream BankList;
+        BankList.open("Files/Banks/BankList", ios::app);
+        BankList << this->getid() << endl;
+        BankList.close();
     }
 
 void Bank::setfoundDate(string fd) {

@@ -4,7 +4,7 @@
 void ShowUserMenu (Person User);
 
 pair<bool, Person> ShowLoginMenu () {
-   
+   system("clear");
     cout << "AccountNumber : ";
     string UserName;
     cin >> UserName;
@@ -46,6 +46,7 @@ pair<bool, Person> ShowLoginMenu () {
 }
 
 void ShowRegisterMenu () {
+    system("clear");
     Person NewAccount;
     string GetString;
     vector<string> keys;
@@ -144,7 +145,8 @@ void ShowRegisterMenu () {
 
 }
 
-void CreateWorker (Bank bank, string type) {
+void ShowRegisterMenuWorker (Bank bank, string type) {
+    system("clear");
     string GetString;
     vector<string> keys;
     vector<string> values;
