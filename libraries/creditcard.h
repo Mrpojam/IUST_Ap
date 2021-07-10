@@ -1,3 +1,4 @@
+
 class Card {
     string Cardnumber;
     string Cvv2;
@@ -64,11 +65,14 @@ string Card::getPass2() {
 
 
 
-void ShowCardMenu () {
+void ShowCardMenu (string accnum) {
     Card NewCard;
     string GetString;
     vector<string> JsonKeys;
     vector<string> JsonValues;
+
+    JsonKeys.push_back("account");
+    JsonValues.push_back(accnum);
 
     cout << "Card Number:";
     cin >> GetString;
@@ -101,7 +105,7 @@ void ShowCardMenu () {
     NewCard.setPass2(GetString);
 
     string file_d = CreateData(JsonKeys, JsonValues);
-    string file_a = "Files/Users/" + NewCard.getCardN();
+    string file_a = "Files/Cards/" + NewCard.getCardN();
     ofstream fin;
     fin.open(file_a);
     fin << file_d;

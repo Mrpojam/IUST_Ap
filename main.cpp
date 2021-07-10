@@ -1,11 +1,48 @@
 #include"libraries/Authentication.h"
 
+
 void ShowUserMenu (Person User) {
     while (true) {
         system("clear");
+        vector<Account> accounts = ShowUserAccounts(User);
         int command;
         cout << "####User Menu####" << endl;
+        cout << "1.Change User Information" <<endl<< "2.Create Account" <<endl<< "3.Change Account" <<endl<< "4.Bank Loans" <<endl<< "5.Create Card" <<endl<< "6.Get Shaba" <<endl<< "7.Back" <<endl;
+        cin>>command;
+        if (command==1) {
+            User.ChangeProfile();
+        }
+        else if (command==2) {
+            ShowAccountMenu(User);
+        }
+        else if (command==3) {
 
+         //   ChangeAccount(Person person)
+        }
+        else if (command==4) {
+
+        }
+        else if (command==5) {
+            system("clear");
+            for (int i = 0; i < accounts.size(); i++)
+                cout << i+1 << ")" << accounts[i].getAccountNumber() << endl;
+            
+            cout << "Choose an Account:";
+            int accnum;
+            cin >> accnum;
+            ShowCardMenu(accounts[accnum-1].getAccountNumber());
+
+        }
+        else if (command==6) {
+            //  GetShaba();
+
+        }
+        else if (command==7) {
+            return ;
+        }
+        else {
+            cout<< "Error!!!" <<endl;
+        }
 
     }
 }
@@ -36,7 +73,7 @@ int main () {
         branches.push_back(newBank);
     }
     BankList.close();
-    
+        
 
 
     while (true) {
@@ -61,7 +98,8 @@ int main () {
                     ShowUserMenu(Login.second);
                 }
             }
-            else if (command == 2) {
+            else if (command2 == 2) {
+                cout << "Sus mast" << endl;
                 ShowRegisterMenu();
             }
         }

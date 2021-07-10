@@ -63,12 +63,6 @@ long long Account::getAccountAmount() {
 string Account::getFoundDate() {
     return FoundDate;
 }
-void CreateAcount(Person person, long long ammount) {
-    string AccNum = "1000" + person.getNcode();
-    // string DoundDate = ""
-    Account NewAccount(AccNum, ammount, "");
-    
-}
 
 void ShowAccountMenu (Person person) {
     Account *NewAccount = new Account();
@@ -157,4 +151,53 @@ void Account::UpdateFile(Person person) {
     Fin.open(fileadress);
     Fin << filedata;
     Fin.close();
+
+    ofstream AllAcc;
+    AllAcc.open("Files/Accounts/AllAccount", ios::app);
+    AllAcc << person.getNcode() << "#" << this->getAccountNumber();
+    AllAcc.close();
+}
+
+vector <Account> ShowUserAccounts (Person User) {
+    string nCode = User.getNcode();
+    vector<Account> ret;
+    ifstream Acc;
+    Acc.open("Files/Accounts/AllAccount");
+    string card;
+    while (Acc >> card) {
+        int index = 0;
+        string number = "";
+        for (int i = 0; i < card.size(); i++) {
+            if (card[i] == '#')
+                break;
+            number += card[i];
+            index++;
+        }
+        index++;
+
+        if (nCode == number) {
+            string AccNum = "";
+            for (int i = index; i < card.size(); i++)
+                AccNum += card[i];
+            ifstream Accounts;
+            Accounts.open("Files/Accounts/" + AccNum);
+            string lines;
+            Accounts >> lines;
+            Account newAccount;
+            Accounts >> lines;
+            
+            newAccount.setAccountNumber(lines.substr(5, lines.size()));
+            Accounts >> lines;
+            
+            newAccount.setAccountAmount(stol(lines.substr(6, lines.size()), nullptr, 10));
+            Accounts >> lines;
+            
+            newAccount.setFoundDate(lines.substr(5, lines.size()));
+
+            ret.push_back(newAccount);
+
+        }
+    }
+    return ret;
+
 }

@@ -17,7 +17,7 @@ class Bank {
     // vector<Person> BankPersons;
     // vector<Worker> BankWorkers;
     Worker Boss();
-    Account    Self;
+    Account Self;
     public:
     Bank(string type) {
         if (type == "CreateNULL");
