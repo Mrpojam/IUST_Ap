@@ -5,6 +5,7 @@ class Account {
     string AccountNumber;
     long long AccountAmount;
     string FoundDate;
+    long long transactionamount;
     public:
     Account(string _Number, long long _Amount, string _Date) {
         this->AccountNumber = _Number;
@@ -18,10 +19,13 @@ class Account {
      void setAccountAmount(long long accam);
      void setFoundDate(string fdt);
      void ChangeAccount(Person person);
+     void transfermoney( Account *AccountNumber1 , Account *AccountNumber2 );
+     void settransferamount(long long trsf2);
     
     string getAccountNumber();
     long long getAccountAmount();
     string getFoundDate();
+    long long gettransferamount();
 
     static int Counter;
 
@@ -44,6 +48,22 @@ class Account {
 
     void UpdateFile(Person person);
 };
+void Account::transfermoney( Account *AccountNumber1 , Account *AccountNumber2 ) {
+    if ( AccountNumber1->AccountAmount < transactionamount ) {
+        cout<< "Dont Have Enough Money!!!" <<endl;
+    }
+    else {
+        AccountNumber1->AccountAmount -= transactionamount;
+        AccountNumber2->AccountAmount += transactionamount;
+        cout<< "The Transaction was successful !!!" <<endl;
+    }
+} 
+void Account::settransferamount( long long trsf2) {
+    transactionamount = trsf2;
+}
+string Account::gettransferamount() {
+    return transactionamount;
+}
 
 void Account::setAccountNumber(string accn) {
     AccountNumber = accn;
