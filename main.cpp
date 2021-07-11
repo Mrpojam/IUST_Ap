@@ -54,8 +54,6 @@ void ShowUserMenu (Person User) {
     }
 }
 
-
-
 vector<Bank> branches;
 
 int main () {
