@@ -1,6 +1,8 @@
 #include"libraries/Authentication.h"
 
 
+vector<Bank> branches;
+
 void ShowUserMenu (Person User) {
     while (true) {
         system("clear");
@@ -54,7 +56,39 @@ void ShowUserMenu (Person User) {
     }
 }
 
-vector<Bank> branches;
+void ShowCounterManager (Counter_Manager User2) {
+    int command4;
+    cout << "####Counter Menu####" << endl;
+    cout << "1.Get Apply for Loan " <<endl<< "2.Transaction" <<endl<< "3.Change Counter Manager Information" <<endl<< "4.Change Postition" <<endl<< "5.Back" <<endl;
+    cin>>command4;
+    if (command4==1) {
+        int accnum1;
+        cout << "Enter Account number which is about to pay:"
+        cin >> accnum;
+        cout << "Enter Account number whici is about to take:";
+        int accnum2;
+        cin >> accnum2;
+        cout << "Enter Amount:";
+        long long amount;
+        cin >> amount;
+    }
+    else if (command4==2) {
+
+    }
+    else if (command4==3) {
+        Change_Worker_Profile();
+    }
+    else if (command4==4) {
+
+    }
+    else if (command4==5) {
+        return ;
+    }
+    else {
+        cout<< "Error!!!" <<endl;
+    }
+
+}
 
 int main () {
 

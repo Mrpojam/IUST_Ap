@@ -5,3 +5,4 @@ class Check {
     Person PayPerson;
     Person TakePerson;
 }
+
