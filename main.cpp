@@ -34,8 +34,15 @@ void ShowUserMenu (Person User) {
 
         }
         else if (command==6) {
-            //  GetShaba();
-
+            for (int i = 0; i < accounts.size(); i++)
+                cout << i+1 << ")" << accounts[i].getAccountNumber() << endl;
+            cout << "Choose an Account:";
+            int accnum;
+            cin >> accnum;
+            cout << accounts[accnum-1].GetShaba() << endl;
+            char c;
+            cout << "Enter something to continue:";
+            cin >> c;
         }
         else if (command==7) {
             return ;
@@ -99,7 +106,6 @@ int main () {
                 }
             }
             else if (command2 == 2) {
-                cout << "Sus mast" << endl;
                 ShowRegisterMenu();
             }
         }

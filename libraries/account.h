@@ -99,6 +99,12 @@ void ShowAccountMenu (Person person) {
     Fin.open(fileadress);
     Fin << filedata;
     Fin.close();
+
+
+    ofstream AllAcc;
+    AllAcc.open("Files/Accounts/All", ios::app);
+    AllAcc << person.getNcode() << "#" << NewAccount->getAccountNumber();
+    AllAcc.close();
 }
 
 void Account::ChangeAccount(Person person) {
@@ -153,7 +159,7 @@ void Account::UpdateFile(Person person) {
     Fin.close();
 
     ofstream AllAcc;
-    AllAcc.open("Files/Accounts/AllAccount", ios::app);
+    AllAcc.open("Files/Accounts/All", ios::app);
     AllAcc << person.getNcode() << "#" << this->getAccountNumber();
     AllAcc.close();
 }
@@ -162,7 +168,7 @@ vector <Account> ShowUserAccounts (Person User) {
     string nCode = User.getNcode();
     vector<Account> ret;
     ifstream Acc;
-    Acc.open("Files/Accounts/AllAccount");
+    Acc.open("Files/Accounts/All");
     string card;
     while (Acc >> card) {
         int index = 0;

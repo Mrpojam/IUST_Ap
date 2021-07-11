@@ -5,10 +5,10 @@ void ShowUserMenu (Person User);
 
 pair<bool, Person> ShowLoginMenu () {
    system("clear");
-    cout << "AccountNumber : ";
+    cout << "User National Code : ";
     string UserName;
     cin >> UserName;
-    cout << "AccountPassword : ";
+    cout << "User Password : ";
     string UserPass;
     cin >> UserPass;
 
