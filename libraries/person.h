@@ -81,7 +81,6 @@ class Worker : public Person {
     string getEID ();
     string getDempl();
     string getSal();
-    ~Worker();
     void UpdateFile();
 };
 class Boss : public Worker {

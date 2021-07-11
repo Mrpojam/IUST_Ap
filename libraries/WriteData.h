@@ -10,7 +10,6 @@ string ExtractData (string key, string data) {
             break;
         }
         else if (data[i] == ':' && KEY != key) {
-            cout << "KEY IS NOT VALID " << KEY << endl;
             KEY = "";
             int index = i+1;
             while (data[index] != '#' && i < n)
@@ -26,6 +25,7 @@ string ExtractData (string key, string data) {
     }
     return "";
 }
+
 string CreateData(vector<string> keys, vector<string> values) {
     string Jtoken;
     for (int i = 0; i < keys.size(); i++) {
@@ -35,6 +35,7 @@ string CreateData(vector<string> keys, vector<string> values) {
         if (i != keys.size() - 1)
             Jtoken += '#';
     }
+    Jtoken += '#';
     return Jtoken;
 }
 

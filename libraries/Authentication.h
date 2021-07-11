@@ -32,10 +32,31 @@ pair<bool, Person> ShowLoginMenu () {
                 password += credentials[i];
             if (password != UserPass) {
                 cout << "password does not match." << endl;
+                cout << "Enter Something to continue:";
+                string c;
+                cin >> c;
                 return {false, User};
             }
             else {
-                
+                ifstream UserFile;
+                UserFile.open("Files/Users/" + UserName);
+                string GetString;
+                UserFile >> GetString;
+                cout << GetString << endl;
+                User.setNcode(ExtractData("nCode", GetString));
+                User.setFname(ExtractData("fName", GetString));
+                User.setLname(ExtractData("lName", GetString));
+                User.setBCnum(ExtractData("BirthCerNum", GetString));
+                User.setWaddress(ExtractData("workAddrr", GetString));
+                User.setHaddress(ExtractData("homeAddrr", GetString));
+                User.setMnum(ExtractData("mobile", GetString));
+                User.setPnum(ExtractData("phone", GetString));
+                User.setFathname(ExtractData("father", GetString));
+                User.setBD(ExtractData("birth", GetString));
+                User.setEmail(ExtractData("email", GetString));
+                UserFile.close();
+
+            
                 return {true, User};
             }
         }
@@ -262,7 +283,7 @@ void ShowRegisterMenuWorker (Bank bank, string type) {
 
 }
 
-pair<bool, Person> ShowLoginMenuWorker () {
+pair<bool, Worker> ShowLoginMenuWorker () {
    system("clear");
     cout << "AccountNumber : ";
     string UserName;
@@ -275,7 +296,7 @@ pair<bool, Person> ShowLoginMenuWorker () {
     Myfile.open("Files/Workers/Credentials");
     string credentials;
     bool exists = false;
-    Person User;
+    Worker User;
     while (Myfile >> credentials) {
         string username = "";
         int i = 0;
@@ -295,6 +316,26 @@ pair<bool, Person> ShowLoginMenuWorker () {
             }
             else {
                 
+                ifstream UserFile;
+                UserFile.open("Files/Workers/" + UserName);
+                string GetString;
+                UserFile >> GetString;
+                User.setNcode(ExtractData("nnum", GetString));
+                User.setFname(ExtractData("fname", GetString));
+                User.setLname(ExtractData("lname", GetString));
+                User.setBCnum(ExtractData("BirthCerNum", GetString));
+                User.setWaddress(ExtractData("workAddrr", GetString));
+                User.setHaddress(ExtractData("homeAddrr", GetString));
+                User.setMnum(ExtractData("mobile", GetString));
+                User.setPnum(ExtractData("phone", GetString));
+                User.setFathname(ExtractData("father", GetString));
+                User.setBD(ExtractData("birth", GetString));
+                User.setEmail(ExtractData("email", GetString));
+                User.setEID(ExtractData("id", GetString));
+                User.setDempl(ExtractData("empdate", GetString));
+                User.setSal(ExtractData("salary", GetString));
+                
+                UserFile.close();
                 return {true, User};
             }
         }

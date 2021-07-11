@@ -9,6 +9,7 @@ void ShowUserMenu (Person User) {
         vector<Account> accounts = ShowUserAccounts(User);
         int command;
         cout << "####User Menu####" << endl;
+        cout << "Your birthdat" << User.getBD() << endl;
         cout << "1.Change User Information" <<endl<< "2.Create Account" <<endl<< "3.Change Account" <<endl<< "4.Bank Loans" <<endl<< "5.Create Card" <<endl<< "6.Get Shaba" <<endl<< "7.Back" <<endl;
         cin>>command;
         if (command==1) {
@@ -62,21 +63,53 @@ void ShowCounterManager (Counter_Manager User2) {
     cout << "1.Get Apply for Loan " <<endl<< "2.Transaction" <<endl<< "3.Change Counter Manager Information" <<endl<< "4.Change Postition" <<endl<< "5.Back" <<endl;
     cin>>command4;
     if (command4==1) {
+        system("clear");
         int accnum1;
-        cout << "Enter Account number which is about to pay:"
-        cin >> accnum;
-        cout << "Enter Account number whici is about to take:";
+        cout << "Enter Account number which is about to pay:";
+        cin >> accnum1;
+        cout << "Enter Account number which is about to take:";
         int accnum2;
         cin >> accnum2;
         cout << "Enter Amount:";
         long long amount;
         cin >> amount;
+        
+        Account Pay;
+        Account Take;
+        
+        ifstream PayFile;
+        PayFile.open("Files/Accounts/" + accnum1);
+        ifstream TakeFile;
+        TakeFile.open("Files/Accounts" + accnum2);
+        
+        string GetString1, GetString2;
+
+        PayFile >> GetString1;
+        TakeFile >> GetString1;
+
+        string PayCode = ExtractData("nnum", GetString1);
+        string TakeCode = ExtractData("nnum", GetString2);
+
+        cout << "Transaction be made from " << GetString1 << " to " << GetString2 << endl;
+
+        Pay.setAccountNumber(ExtractData("accnum", GetString1));
+        Pay.setAccountAmount (stol (ExtractData("accam", GetString1), nullptr, 10));
+        Pay.setFoundDate(ExtractData("fdt", GetString1));
+        
+        Take.setAccountNumber(ExtractData("accnum", GetString2));
+        Take.setAccountAmount (stol (ExtractData("accam", GetString2)));
+        Take.setFoundDate(ExtractData("fdt", GetString2));
+        
+
+        transfermoney(&Pay, &Take, amount, PayCode, TakeCode);
+
+
     }
     else if (command4==2) {
 
     }
     else if (command4==3) {
-        Change_Worker_Profile();
+      //  Change_Worker_Profile();
     }
     else if (command4==4) {
 
@@ -102,13 +135,9 @@ int main () {
         string data;
         Bank newBank ("CreateNULL");
         bank >> data;
-        newBank.setid(data.substr(3, data.size()));
-        bank >> data;
-
-        newBank.setfoundDate(data.substr(5, data.size()));
-        bank >> data;
-
-        newBank.setbankaddress(data.substr(4, data.size()));
+        newBank.setid(ExtractData("id", data));
+        newBank.setfoundDate(ExtractData("id", data));
+        newBank.setbankaddress(ExtractData("Add", data));
         branches.push_back(newBank);
     }
     BankList.close();
@@ -134,6 +163,7 @@ int main () {
                 pair<bool, Person> Login;
                 Login = ShowLoginMenu();
                 if (Login.first) {
+                    
                     ShowUserMenu(Login.second);
                 }
             }
@@ -163,7 +193,7 @@ int main () {
                 int id;
                 cout << "Enter number of your choice:";
                 cin >> id;
-                cout << "1)Boss\n2)Cashier3)Counter Manager" << endl;
+                cout << "1)Boss\n2)Cashier3)\nCounter Manager" << endl;
                 int type;
                 cout << "Enter The Type of your choice:";
                 cin >> type;
@@ -181,14 +211,10 @@ int main () {
         else if (command == 3) {
                     system("clear");
 
-            cout << "c)Create Branch" << endl;
-            char command;
-            cin >> command;
-            if (command == 'c') {
                 Bank *newBank = new Bank();
                 branches.push_back(*newBank);
                 system("clear");
-            }
+            
         }
     }
 

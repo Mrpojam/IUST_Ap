@@ -19,14 +19,12 @@ class Account {
      void setAccountAmount(long long accam);
      void setFoundDate(string fdt);
      void ChangeAccount(Person person);
-     void transfermoney( Account *AccountNumber1 , Account *AccountNumber2 );
-     void settransferamount(long long trsf2);
+     
     
     string getAccountNumber();
     long long getAccountAmount();
     string getFoundDate();
-    long long gettransferamount();
-
+    
     static int Counter;
 
     string GetShaba () {
@@ -46,24 +44,23 @@ class Account {
         this->AccountAmount += _Amount;
     }
 
-    void UpdateFile(Person person);
+    void UpdateFile(string nCode);
 };
-void Account::transfermoney( Account *AccountNumber1 , Account *AccountNumber2 ) {
-    if ( AccountNumber1->AccountAmount < transactionamount ) {
+
+
+void transfermoney( Account *AccountNumber1 , Account *AccountNumber2 , long long transactionamount, string PayCode, string TakeCode ) {
+    if ( AccountNumber1->getAccountAmount() < transactionamount ) {
         cout<< "Dont Have Enough Money!!!" <<endl;
     }
     else {
-        AccountNumber1->AccountAmount -= transactionamount;
-        AccountNumber2->AccountAmount += transactionamount;
+        AccountNumber1->Deposit(transactionamount);
+        AccountNumber2->Withdraw(transactionamount);
+        AccountNumber1->UpdateFile(PayCode);
+        AccountNumber2->UpdateFile(TakeCode);
         cout<< "The Transaction was successful !!!" <<endl;
     }
-} 
-void Account::settransferamount( long long trsf2) {
-    transactionamount = trsf2;
 }
-string Account::gettransferamount() {
-    return transactionamount;
-}
+
 
 void Account::setAccountNumber(string accn) {
     AccountNumber = accn;
@@ -123,7 +120,7 @@ void ShowAccountMenu (Person person) {
 
     ofstream AllAcc;
     AllAcc.open("Files/Accounts/All", ios::app);
-    AllAcc << person.getNcode() << "#" << NewAccount->getAccountNumber();
+    AllAcc << person.getNcode() << "#" << NewAccount->getAccountNumber() << endl;
     AllAcc.close();
 }
 
@@ -152,15 +149,15 @@ void Account::ChangeAccount(Person person) {
     else {
         cout<<"Error!!!"<<endl;
     }
-    UpdateFile(person);
+    UpdateFile(person.getNcode());
 }
 
-void Account::UpdateFile(Person person) {
+void Account::UpdateFile(string Ncode) {
      vector<string> JsonKeys;
     vector<string> JsonValues;
 
     JsonKeys.push_back("nnum");
-    JsonValues.push_back(person.getNcode());
+    JsonValues.push_back(Ncode);
 
     JsonKeys.push_back("accn");
     JsonValues.push_back(this->AccountNumber);
@@ -180,7 +177,7 @@ void Account::UpdateFile(Person person) {
 
     ofstream AllAcc;
     AllAcc.open("Files/Accounts/All", ios::app);
-    AllAcc << person.getNcode() << "#" << this->getAccountNumber();
+    AllAcc << Ncode << "#" << this->getAccountNumber() << endl;
     AllAcc.close();
 }
 
@@ -200,25 +197,19 @@ vector <Account> ShowUserAccounts (Person User) {
             index++;
         }
         index++;
-
         if (nCode == number) {
             string AccNum = "";
             for (int i = index; i < card.size(); i++)
                 AccNum += card[i];
             ifstream Accounts;
             Accounts.open("Files/Accounts/" + AccNum);
-            string lines;
-            Accounts >> lines;
+            string data;
+            Accounts >> data;
             Account newAccount;
-            Accounts >> lines;
             
-            newAccount.setAccountNumber(lines.substr(5, lines.size()));
-            Accounts >> lines;
-            
-            newAccount.setAccountAmount(stol(lines.substr(6, lines.size()), nullptr, 10));
-            Accounts >> lines;
-            
-            newAccount.setFoundDate(lines.substr(5, lines.size()));
+            newAccount.setAccountNumber(ExtractData("accn", data));
+            newAccount.setAccountAmount(stol(ExtractData("accam", data), nullptr, 10));
+            newAccount.setFoundDate(ExtractData("fdt", data));
 
             ret.push_back(newAccount);
 
