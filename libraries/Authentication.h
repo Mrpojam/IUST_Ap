@@ -293,7 +293,7 @@ pair<bool, Worker> ShowLoginMenuWorker () {
     cin >> UserPass;
 
     ifstream Myfile;
-    Myfile.open("Files/Workers/Credentials");
+    Myfile.open("Files/Users/Credentials");
     string credentials;
     bool exists = false;
     Worker User;

@@ -57,18 +57,18 @@ void ShowUserMenu (Person User) {
     }
 }
 
-void ShowCounterManager (Counter_Manager User2) {
+void ShowCounterManager (Worker User2) {
     int command4;
     cout << "####Counter Menu####" << endl;
     cout << "1.Get Apply for Loan " <<endl<< "2.Transaction" <<endl<< "3.Change Counter Manager Information" <<endl<< "4.Change Postition" <<endl<< "5.Back" <<endl;
     cin>>command4;
-    if (command4==1) {
+    if (command4==2) {
         system("clear");
-        int accnum1;
+        string accnum1;
         cout << "Enter Account number which is about to pay:";
         cin >> accnum1;
         cout << "Enter Account number which is about to take:";
-        int accnum2;
+        string accnum2;
         cin >> accnum2;
         cout << "Enter Amount:";
         long long amount;
@@ -76,28 +76,30 @@ void ShowCounterManager (Counter_Manager User2) {
         
         Account Pay;
         Account Take;
-        
+        cout << "1 : " << accnum1 << " 2 : " << accnum2 << endl;
         ifstream PayFile;
         PayFile.open("Files/Accounts/" + accnum1);
         ifstream TakeFile;
-        TakeFile.open("Files/Accounts" + accnum2);
+        TakeFile.open("Files/Accounts/" + accnum2);
         
         string GetString1, GetString2;
 
         PayFile >> GetString1;
-        TakeFile >> GetString1;
+        TakeFile >> GetString2;
 
+        cout << GetString1 << endl;
+        cout << GetString2 << endl;
         string PayCode = ExtractData("nnum", GetString1);
         string TakeCode = ExtractData("nnum", GetString2);
 
         cout << "Transaction be made from " << GetString1 << " to " << GetString2 << endl;
 
-        Pay.setAccountNumber(ExtractData("accnum", GetString1));
+        Pay.setAccountNumber(ExtractData("accn", GetString1));
         Pay.setAccountAmount (stol (ExtractData("accam", GetString1), nullptr, 10));
         Pay.setFoundDate(ExtractData("fdt", GetString1));
         
-        Take.setAccountNumber(ExtractData("accnum", GetString2));
-        Take.setAccountAmount (stol (ExtractData("accam", GetString2)));
+        Take.setAccountNumber(ExtractData("accn", GetString2));
+        Take.setAccountAmount (stol (ExtractData("accam", GetString2), nullptr, 10));
         Take.setFoundDate(ExtractData("fdt", GetString2));
         
 
@@ -105,7 +107,7 @@ void ShowCounterManager (Counter_Manager User2) {
 
 
     }
-    else if (command4==2) {
+    else if (command4==1) {
 
     }
     else if (command4==3) {
@@ -178,11 +180,12 @@ int main () {
             cout <<"1)Login\n2)Register" << endl;
             cin >> command2;
             if (command2 == 1) {
-                pair<bool, Person> Login;
+                pair<bool, Worker> Login;
                 Login = ShowLoginMenuWorker();
                 if (Login.first) {
-
+                    ShowCounterManager(Login.second);
                 }
+   
             }
             else if (command2 == 2) {
                         system("clear");
@@ -216,7 +219,7 @@ int main () {
                 system("clear");
             
         }
-    }
+    }   
 
     while(true) {
         system("clear");
