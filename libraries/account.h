@@ -28,7 +28,7 @@ class Account {
     static int Counter;
 
     string GetShaba () {
-        return "IR" + AccountNumber;
+        return "IR0000" + AccountNumber;
     }
 
    

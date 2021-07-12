@@ -6,6 +6,7 @@ using namespace std;
 #include"account.h"
 #include"creditcard.h"
 // #indelud"report.h"
+#include"Check.h"
 class Bank {
     private:
     string BankName;

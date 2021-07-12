@@ -110,4 +110,9 @@ void ShowCardMenu (string accnum) {
     fin.open(file_a);
     fin << file_d;
     fin.close();
+
+    ofstream AllCards;
+    AllCards.open("Files/Cards/All", ios::app);
+    AllCards << NewCard.getCardN() << endl;
+    AllCards.close();
 }

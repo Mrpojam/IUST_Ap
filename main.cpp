@@ -9,7 +9,6 @@ void ShowUserMenu (Person User) {
         vector<Account> accounts = ShowUserAccounts(User);
         int command;
         cout << "####User Menu####" << endl;
-        cout << "Your birthdat" << User.getBD() << endl;
         cout << "1.Change User Information" <<endl<< "2.Create Account" <<endl<< "3.Change Account" <<endl<< "4.Bank Loans" <<endl<< "5.Create Card" <<endl<< "6.Get Shaba" <<endl<< "7.Back" <<endl;
         cin>>command;
         if (command==1) {

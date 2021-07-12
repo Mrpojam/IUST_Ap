@@ -67,4 +67,54 @@ string Loan::getaccountnum() {
     return AccountNumber;
 }
 
+/*Loan loan;
+ifstream LoanFile;
+LoanFile.open("Files/Loans/" + codebranch + accountnum);
+string GetString;
+LoanFile >> GetString;
+cout << GetString << endl;
+loan.setcodebranch(ExtractData("codebranch", GetString));
+loan.setaccountnum(ExtractData("accountnum", GetString));
+loan.setloanamount(stol(ExtractData("loanamount", GetString), nullptr, 10));
+loan.situationprocess(stoi(ExtractData("stn", GetString), nullptr, 10));
+LoanFile.close();*/
 
+void CreateLoan() {
+    Loan NewLoan;
+    string GetString;
+    long long Getlonglong;
+    int Getint;
+    vector<string> keys;
+    vector<string> values;
+
+    cout << "Branch Id:";
+    cin >> GetString;
+    keys.push_back("codebranch");
+    values.push_back(GetString);
+    NewLoan.setcodebranch(GetString);
+
+    cout << "Account Number:";
+    cin >> GetString;
+    keys.push_back("accountnum");
+    values.push_back(GetString);
+    NewLoan.setaccountnum(GetString);
+
+    cout << "Loan Amount:";
+    cin >> Getlonglong;
+    keys.push_back("loanamount");
+    values.push_back(to_string(Getlonglong));
+    NewLoan.setloanamount(Getlonglong);
+
+    keys.push_back("0");
+    values.push_back(Getint);
+    NewLoan.situationprocess(Getint);
+
+    string FileData = CreateData(keys, values);
+
+    string FileAdress = "Files/Loans/" + NewLoan.getcodebranch() + NewLoan.getaccountnum();
+    
+    ofstream MyLoan;
+    MyLoan.open(FileAdress);
+    MyLoan << FileData;
+    MyLoan.close();
+}
