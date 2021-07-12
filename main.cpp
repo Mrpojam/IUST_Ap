@@ -1,7 +1,9 @@
 #include"libraries/Authentication.h"
 
+#include"libraries/loan.h"
 
 vector<Bank> branches;
+vector<Loan> loans;
 
 void ShowUserMenu (Person User) {
     while (true) {
@@ -22,7 +24,21 @@ void ShowUserMenu (Person User) {
          //   ChangeAccount(Person person)
         }
         else if (command==4) {
-
+                system("clear");
+                cout << "Choose the bank:" << endl;
+                for (int i = 0; i < branches.size(); i++)
+                    cout << i+1 << ")" << branches[i].getid() << endl;
+                int BankId;
+                cout << "Your Choice : ";
+                cin >> BankId;
+                system("clear");
+                cout << "Choose the account:" << endl;
+                for (int i = 0; i < accounts.size(); i++) 
+                    cout << i+1 << ")" << accounts[i].getAccountNumber() << endl;
+                int AccNum;
+                cout << "Your Choice : ";
+                cin >> AccNum;
+                CreateLoan(branches[BankId-1].getid(), accounts[AccNum-1].getAccountNumber());
         }
         else if (command==5) {
             system("clear");
@@ -107,7 +123,19 @@ void ShowCounterManager (Worker User2) {
 
     }
     else if (command4==1) {
+        int index = 1;
+        vector<Loan> ManagerLoans;
+        for (int i = 0; i < loans.size(); i++) {
+            if (loans[i].getSit() == 0) ManagerLoans.push_back(loans[i]);
+        }
+        cout << ManagerLoans.size() << endl;
+        for (int i = 0; i < ManagerLoans.size(); i++)
+            cout << i+1 << ")" << "account:" << ManagerLoans[i].getaccountnum() << " bank:" << ManagerLoans[i].getcodebranch() << " amount:" << ManagerLoans[i].getloanamount() << endl; 
 
+        int choice;
+        cout << "choose a loan to accept:";
+        cin >> choice;
+        ManagerLoans[choice-1].update();
     }
     else if (command4==3) {
       //  Change_Worker_Profile();
@@ -122,6 +150,43 @@ void ShowCounterManager (Worker User2) {
         cout<< "Error!!!" <<endl;
     }
 
+}
+
+
+void ShowBossMenu (Worker User1) {
+    int command3;
+    cout << "####Boss Menu####" << endl;
+    cout << "1.Accept Loan" <<endl<< "2.Refuse Loan" <<endl<< "3.Change Boss Information" <<endl<< "4.Change Position" <<endl<< "5.Back" <<endl;
+    cin>>command3;
+    if (command3==1) {
+        vector<Loan> BossLoans;
+        for (int i = 0; i < loans.size(); i++) {
+            if (loans[i].getSit() == 1) BossLoans.push_back(loans[i]);
+        }
+        cout << BossLoans.size() << endl;
+        for (int i = 0; i < BossLoans.size(); i++)
+            cout << i+1 << ")" << "account:" << BossLoans[i].getaccountnum() << " bank:" << BossLoans[i].getcodebranch() << " amount:" << BossLoans[i].getloanamount() << endl; 
+
+        int choice;
+        cout << "choose a loan to accept:";
+        cin >> choice;
+        BossLoans[choice-1].update(); 
+    }
+    else if (command3==2) {
+
+    }
+    else if (command3==3) {
+        //Change_Worker_Profile();
+    }
+    else if (command3==4) {
+
+    }
+    else if (command3==5) {
+        return ;
+    }
+    else {
+        cout<< "Error!!!" <<endl;
+    }
 }
 
 int main () {
@@ -142,8 +207,25 @@ int main () {
         branches.push_back(newBank);
     }
     BankList.close();
-        
+    
+    ifstream LoanList;
+    LoanList.open("Files/Loans/All");
 
+    string loan;
+    while (LoanList >> loan) {
+        Loan newLoan;
+        ifstream loanfile;
+        loanfile.open("Files/Loans/" + loan);
+        string data;
+        loanfile >> data;
+        
+        newLoan.setcodebranch(ExtractData("codebranch", data));
+        newLoan.setaccountnum(ExtractData("accountnum", data));
+        newLoan.setloanamount(stol(ExtractData("loanamount", data), nullptr, 10));
+        newLoan.setsit(stoi(ExtractData("sit", data)));
+        loans.push_back(newLoan);
+        loanfile.close();
+    }
 
     while (true) {
         system("clear");
@@ -176,13 +258,16 @@ int main () {
                     system("clear");
 
             int command2;
-            cout <<"1)Login\n2)Register" << endl;
+            cout <<"1)Login Counter Manager\n2)Cashier\n3)Boss\n4)Register" << endl;
             cin >> command2;
-            if (command2 == 1) {
+            if (command2 == 1 || command2 == 2 || command2 == 3) {
                 pair<bool, Worker> Login;
                 Login = ShowLoginMenuWorker();
                 if (Login.first) {
+                    if (command2 == 1)
                     ShowCounterManager(Login.second);
+                    else if (command2 == 3)
+                    ShowBossMenu(Login.second);
                 }
    
             }

@@ -1,51 +1,93 @@
-#include"account.h"
-#include"bank.h"
 class Loan {
     private:
     int situation;
     long long loanamount;
+    string AccountNumber;
+    string Id;
     public:
-    void situationprocess(int stn);
+    
+    void varizvam();
     void setcodebranch(string codebranch);
     void setaccountnum(string accountnum);
     void setloanamount(long long loanamt);
-    void varizvam(longlong lamount);
     long long getloanamount();
     string getcodebranch();
     string getaccountnum();
-
+    void update();
     Loan() {
+        situation = 0;
         return;
     }
 
-    varizvam();
-    getloanamount();
-    getcodebranch();
-    getaccountnum();
+    int getSit() {
+        return situation;
+    }
+void setsit (int sit) {
+        situation = sit;
+    }
+    
 };
 
-void Loan::situationprocess(int stn) {
-    situation = stn;
-    if (situation == 0) {
-        cout<< "Montazer Sabt tavasot Masoul Bajeh!" <<endl;
-    }
-    else if (situation == 1) {
-        cout<< "Sabt Shode Tavasot Masoul Bajeh va Montazer Ghaboul Raeis Shoebeh!" <<endl;
-    }
-    else if (situation == 2) {
-        Cout<< "Ghaboul Shode tavasot Raeis Shoebeh!" <<endl;
-        varizvam();
-    }
-    else if (situation != 0 || situation != 1 || situation != 2) {
-        cout<< "Error!!!" <<endl;
-    }
+
+void Loan::update() {
+    if (situation < 2) situation++;
+    cout << situation << endl;
+    if (situation == 2) varizvam();
+    ofstream LoanFile;
+    LoanFile.open("Files/Loans/" + (this->getcodebranch() + this->getaccountnum()));
+    vector<string> keys;
+    vector<string> values;
+
+    keys.push_back("codebranch");
+    values.push_back(this->getcodebranch());
+    
+    keys.push_back("accountnum");
+    values.push_back(this->getaccountnum());
+    
+    keys.push_back("loanamount");
+    values.push_back(to_string(this->getloanamount()));
+    
+     keys.push_back("sit");
+    values.push_back(to_string(situation));
+   
+    string FileData = CreateData(keys, values);
+    LoanFile << FileData;
+    LoanFile.close();
+    int x;
+    cin >> x;
 }
 
-void Loan::varizvam(Bank bank, Account dist) {
+void Loan::varizvam() {
 
-    bank.Self.Depostit(loanamount);
+    Account bank;
+    Account dist;
+
+    ifstream BankFile;
+    BankFile.open("Files/Accounts/" + ("1000" + this->getcodebranch()));
+    string GetString;
+    BankFile >> GetString;
+    bank.setAccountNumber(ExtractData("accn", GetString));
+    string am = ExtractData("accam", GetString);
+    bank.setAccountAmount(stol(am, nullptr, 10));
+    bank.setFoundDate(ExtractData("fdt", GetString));
+    BankFile.close();
+
+    bank.Deposit(loanamount);
+    bank.UpdateFile(ExtractData("nnum", GetString));
+
+    ifstream DtisFile;
+    DtisFile.open("Files/Accounts/"  + this->getaccountnum());
+    DtisFile >> GetString;
+    dist.setAccountNumber(ExtractData("accn", GetString));
+    cout << "DEBUG" << endl;
+    dist.setAccountAmount(stol(ExtractData("accam", GetString), nullptr, 10));
+    dist.setFoundDate(ExtractData("fdt", GetString));
+    DtisFile.close();
+
     dist.Withdraw(loanamount);
-    cout<< "Vam Variz Shod!" <<endl;
+
+    dist.UpdateFile(ExtractData("nnum", GetString));
+
      
 }
 void Loan::setcodebranch(string codebranch) {
@@ -79,7 +121,7 @@ loan.setloanamount(stol(ExtractData("loanamount", GetString), nullptr, 10));
 loan.situationprocess(stoi(ExtractData("stn", GetString), nullptr, 10));
 LoanFile.close();*/
 
-void CreateLoan() {
+void CreateLoan(string BankID, string AccountNum) {
     Loan NewLoan;
     string GetString;
     long long Getlonglong;
@@ -87,17 +129,13 @@ void CreateLoan() {
     vector<string> keys;
     vector<string> values;
 
-    cout << "Branch Id:";
-    cin >> GetString;
     keys.push_back("codebranch");
-    values.push_back(GetString);
-    NewLoan.setcodebranch(GetString);
+    values.push_back(BankID);
+    NewLoan.setcodebranch(BankID);
 
-    cout << "Account Number:";
-    cin >> GetString;
     keys.push_back("accountnum");
-    values.push_back(GetString);
-    NewLoan.setaccountnum(GetString);
+    values.push_back(AccountNum);
+    NewLoan.setaccountnum(AccountNum);
 
     cout << "Loan Amount:";
     cin >> Getlonglong;
@@ -105,16 +143,19 @@ void CreateLoan() {
     values.push_back(to_string(Getlonglong));
     NewLoan.setloanamount(Getlonglong);
 
-    keys.push_back("0");
-    values.push_back(Getint);
-    NewLoan.situationprocess(Getint);
-
+     keys.push_back("sit");
+    values.push_back("0");
+   
     string FileData = CreateData(keys, values);
 
     string FileAdress = "Files/Loans/" + NewLoan.getcodebranch() + NewLoan.getaccountnum();
-    
     ofstream MyLoan;
     MyLoan.open(FileAdress);
     MyLoan << FileData;
     MyLoan.close();
+
+    ofstream AllLoans;
+    AllLoans.open("Files/Loans/All", ios::app);
+    AllLoans << NewLoan.getcodebranch() + NewLoan.getaccountnum() << endl;
+    AllLoans.close();
 }
