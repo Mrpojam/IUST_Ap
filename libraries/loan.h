@@ -22,7 +22,7 @@ class Loan {
     int getSit() {
         return situation;
     }
-void setsit (int sit) {
+    void setsit (int sit) {
         situation = sit;
     }
     
@@ -31,7 +31,6 @@ void setsit (int sit) {
 
 void Loan::update() {
     if (situation < 2) situation++;
-    cout << situation << endl;
     if (situation == 2) varizvam();
     ofstream LoanFile;
     LoanFile.open("Files/Loans/" + (this->getcodebranch() + this->getaccountnum()));
@@ -53,8 +52,6 @@ void Loan::update() {
     string FileData = CreateData(keys, values);
     LoanFile << FileData;
     LoanFile.close();
-    int x;
-    cin >> x;
 }
 
 void Loan::varizvam() {

@@ -2,8 +2,7 @@
 
 #include"libraries/loan.h"
 
-vector<Bank> branches;
-vector<Loan> loans;
+#include"libraries/utils.h"
 
 void ShowUserMenu (Person User) {
     while (true) {
@@ -136,6 +135,7 @@ void ShowCounterManager (Worker User2) {
         cout << "choose a loan to accept:";
         cin >> choice;
         ManagerLoans[choice-1].update();
+        UpdateLoans();
     }
     else if (command4==3) {
       //  Change_Worker_Profile();
@@ -171,6 +171,7 @@ void ShowBossMenu (Worker User1) {
         cout << "choose a loan to accept:";
         cin >> choice;
         BossLoans[choice-1].update(); 
+        UpdateLoans();
     }
     else if (command3==2) {
 
@@ -191,42 +192,9 @@ void ShowBossMenu (Worker User1) {
 
 int main () {
 
-    ifstream BankList;
-    BankList.open("Files/Banks/BankList");
-
-    string BankId;
-    while (BankList >> BankId) {
-        ifstream bank;
-        bank.open("Files/Banks/" + BankId);
-        string data;
-        Bank newBank ("CreateNULL");
-        bank >> data;
-        newBank.setid(ExtractData("id", data));
-        newBank.setfoundDate(ExtractData("id", data));
-        newBank.setbankaddress(ExtractData("Add", data));
-        branches.push_back(newBank);
-    }
-    BankList.close();
-    
-    ifstream LoanList;
-    LoanList.open("Files/Loans/All");
-
-    string loan;
-    while (LoanList >> loan) {
-        Loan newLoan;
-        ifstream loanfile;
-        loanfile.open("Files/Loans/" + loan);
-        string data;
-        loanfile >> data;
-        
-        newLoan.setcodebranch(ExtractData("codebranch", data));
-        newLoan.setaccountnum(ExtractData("accountnum", data));
-        newLoan.setloanamount(stol(ExtractData("loanamount", data), nullptr, 10));
-        newLoan.setsit(stoi(ExtractData("sit", data)));
-        loans.push_back(newLoan);
-        loanfile.close();
-    }
-
+    UpdateBanks();
+    UpdateLoans();
+  
     while (true) {
         system("clear");
         cout << "1)Login/Register Users\n2)Login/Register Workers\n3)Create New bank branch\n" << endl;
