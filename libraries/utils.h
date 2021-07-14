@@ -1,5 +1,7 @@
 vector<Bank> branches;
 vector<Loan> loans;
+vector<Check> checks;
+
 
 
 void UpdateBanks () {
@@ -49,4 +51,27 @@ void UpdateLoans() {
     }
 
     LoanList.close();
+}
+
+void UpdateChecks () {
+    checks.clear();
+
+    ifstream checklist;
+    checklist.open("Files/Checks/All");
+
+    string check;
+    while (checklist >> check) {
+        Check newCheck;
+        ifstream checkFile;
+        checkFile.open("Files/Checks/" + check);
+        string data;
+        checkFile >> data;
+
+        newCheck.setcheckamount(stol(ExtractData("amount", data), nullptr, 10));
+        newCheck.setchecknumber(ExtractData("num", data));
+        newCheck.PayPerson = ExtractData("pay", data);
+        newCheck.TakePerson = ExtractData("take", data);
+        newCheck.done = (ExtractData("done", data) == "0" ? false : true);
+        checks.push_back(newCheck);
+    }
 }

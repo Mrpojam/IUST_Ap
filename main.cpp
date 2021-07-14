@@ -61,8 +61,8 @@ void ShowUserMenu (Person User) {
             cout << "Enter something to continue:";
             cin >> c;
         }
-        else if (command==7) {
-            return ;
+        else if (command == 7) {    
+            return;
         }
         else {
             cout<< "Error!!!" <<endl;
@@ -190,11 +190,84 @@ void ShowBossMenu (Worker User1) {
     }
 }
 
+void ShowCashier (Worker User3) {
+    int command5;
+    while (1) {
+    cout << "####Cashier Menu####" << endl;
+    cout << "1.Get Check Data" <<endl<< "2.Change Cashier Information" <<endl<< "3.Change Position" << "4.Back" <<endl;
+    cin>>command5;
+    if (command5==1) {
+        cout << "Enter Check number:";
+        string checknumber;
+        cin >> checknumber;
+        for (int i = 0; i < checks.size(); i++) {
+            cout << checks[i].getchecknumber() << endl;
+            if (checks[i].getchecknumber() == checknumber) {
+                cout << "Fond" << endl;
+                if (checks[i].done) {
+                    cout << "Check has been passed" << endl;
+                }
+                else {
+                    string accnum1 = checks[i].PayPerson;
+                    string accnum2 = checks[i].TakePerson;
+                    Account Pay;
+                    Account Take;
+                    cout << "1 : " << accnum1 << " 2 : " << accnum2 << endl;
+                    ifstream PayFile;
+                    PayFile.open("Files/Accounts/" + accnum1);
+                    ifstream TakeFile;
+                    TakeFile.open("Files/Accounts/" + accnum2);
+                    
+                    string GetString1, GetString2;
+
+                    PayFile >> GetString1;
+                    TakeFile >> GetString2;
+
+                    cout << GetString1 << endl;
+                    cout << GetString2 << endl;
+                    string PayCode = ExtractData("nnum", GetString1);
+                    string TakeCode = ExtractData("nnum", GetString2);
+
+                    cout << "Transaction be made from " << GetString1 << " to " << GetString2 << endl;
+
+                    Pay.setAccountNumber(ExtractData("accn", GetString1));
+                    Pay.setAccountAmount (stol (ExtractData("accam", GetString1), nullptr, 10));
+                    Pay.setFoundDate(ExtractData("fdt", GetString1));
+                    
+                    Take.setAccountNumber(ExtractData("accn", GetString2));
+                    Take.setAccountAmount (stol (ExtractData("accam", GetString2), nullptr, 10));
+                    Take.setFoundDate(ExtractData("fdt", GetString2));
+                    
+
+                    transfermoney(&Pay, &Take, checks[i].getcheckamount(), PayCode, TakeCode);
+
+                }
+                break;
+            }
+            int x;
+            cin >> x;
+        }
+    }
+    else if (command5==2) {
+       // Change_Worker_Profile();
+    }
+    else if (command5==3) {
+
+    }
+    else if (command5==4) {
+        return ;
+    }
+    else {
+        cout<< "Error!!!" <<endl;
+    }
+    }
+}
+
 int main () {
 
     UpdateBanks();
     UpdateLoans();
-  
+    UpdateChecks();
     while (true) {
         system("clear");
         cout << "1)Login/Register Users\n2)Login/Register Workers\n3)Create New bank branch\n" << endl;
@@ -226,7 +299,7 @@ int main () {
                     system("clear");
 
             int command2;
-            cout <<"1)Login Counter Manager\n2)Cashier\n3)Boss\n4)Register" << endl;
+            cout <<"\n1)Login Counter Manager\n2) Login Cashier\n3)Login Boss\n4)Register" << endl;
             cin >> command2;
             if (command2 == 1 || command2 == 2 || command2 == 3) {
                 pair<bool, Worker> Login;
@@ -234,12 +307,14 @@ int main () {
                 if (Login.first) {
                     if (command2 == 1)
                     ShowCounterManager(Login.second);
+                    else if (command2 == 2)
+                    ShowCashier(Login.second);
                     else if (command2 == 3)
                     ShowBossMenu(Login.second);
                 }
    
             }
-            else if (command2 == 2) {
+            else if (command2 == 4) {
                         system("clear");
 
                 cout << "Choose your bank:" << endl;
@@ -248,7 +323,7 @@ int main () {
                 int id;
                 cout << "Enter number of your choice:";
                 cin >> id;
-                cout << "1)Boss\n2)Cashier3)\nCounter Manager" << endl;
+                cout << "1)Boss\n2)Cashier\n3)Counter Manager" << endl;
                 int type;
                 cout << "Enter The Type of your choice:";
                 cin >> type;
@@ -259,9 +334,8 @@ int main () {
                     TypeName = "Cashier";
                 else 
                     TypeName = "Counter_Manager";
-                ShowRegisterMenuWorker(branches[id+1], TypeName);
+                ShowRegisterMenuWorker(branches[id-1], TypeName);
             }
-
         }
         else if (command == 3) {
                     system("clear");

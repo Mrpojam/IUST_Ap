@@ -167,12 +167,13 @@ void ShowRegisterMenu () {
 }
 
 void ShowRegisterMenuWorker (Bank bank, string type) {
+    
     system("clear");
     string GetString;
     vector<string> keys;
     vector<string> values;
 
-    Worker *NewWorker = new Worker("12");
+    Worker *NewWorker = new Worker();
 
     keys.push_back("bankid");
     values.push_back(bank.getid());
