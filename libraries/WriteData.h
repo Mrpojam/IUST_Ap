@@ -4,7 +4,6 @@ string ExtractData (string key, string data) {
     int i = 0;
     string KEY = "";
     for (; i < n; i++) {
-        
         if (data[i] == ':' && KEY == key) {
             i++;
             break;
@@ -38,5 +37,3 @@ string CreateData(vector<string> keys, vector<string> values) {
     Jtoken += '#';
     return Jtoken;
 }
-
-//fname:pouya#fname:jafari#

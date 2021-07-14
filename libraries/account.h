@@ -1,4 +1,3 @@
-
 #include"person.h"
 class Account {
     private:
@@ -20,7 +19,6 @@ class Account {
      void setFoundDate(string fdt);
      void ChangeAccount(Person person);
      
-    
     string getAccountNumber();
     long long getAccountAmount();
     string getFoundDate();
@@ -31,7 +29,6 @@ class Account {
         return "IR0000" + AccountNumber;
     }
 
-   
     void Deposit (long long _Amount) {
         if (this->AccountAmount - _Amount < 0) {
             cout << "Not enough money!" << endl;
@@ -47,7 +44,6 @@ class Account {
     void UpdateFile(string nCode);
 };
 
-
 void transfermoney( Account *AccountNumber1 , Account *AccountNumber2 , long long transactionamount, string PayCode, string TakeCode ) {
     if ( AccountNumber1->getAccountAmount() < transactionamount ) {
         cout<< "Dont Have Enough Money!!!" <<endl;
@@ -60,7 +56,6 @@ void transfermoney( Account *AccountNumber1 , Account *AccountNumber2 , long lon
         cout<< "The Transaction was successful !!!" <<endl;
     }
 }
-
 
 void Account::setAccountNumber(string accn) {
     AccountNumber = accn;
@@ -109,14 +104,12 @@ void ShowAccountMenu (Person person) {
     JsonValues.push_back(GetString);
     NewAccount->setFoundDate(GetString);
 
-
     string filedata = CreateData(JsonKeys, JsonValues);
     string fileadress = "Files/Accounts/" + NewAccount->getAccountNumber();
     ofstream Fin;
     Fin.open(fileadress);
     Fin << filedata;
     Fin.close();
-
 
     ofstream AllAcc;
     AllAcc.open("Files/Accounts/All", ios::app);
@@ -212,9 +205,7 @@ vector <Account> ShowUserAccounts (Person User) {
             newAccount.setFoundDate(ExtractData("fdt", data));
 
             ret.push_back(newAccount);
-
         }
     }
     return ret;
-
 }

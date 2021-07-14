@@ -43,7 +43,6 @@ class Person {
         setDM(dm);
         setEmail(email);
 
-
      }
      string getFname();   
      string getLname();
@@ -57,7 +56,6 @@ class Person {
      string getBD();
      string getDM();
      string getEmail();
-
      void UpdateFile();
     
 };
@@ -77,20 +75,10 @@ class Worker : public Person {
         setDempl(dempl);
         setSal(sal);
     }
-    
     string getEID ();
     string getDempl();
     string getSal();
     void UpdateFile();
-};
-class Boss : public Worker {
-
-};
-class Counter_Manager : public Worker {
-
-};
-class Cashier : public Worker {
-
 };
 
 void Person::setFname(string fname) {
@@ -276,14 +264,13 @@ void Person::UpdateFile() {
     MyFile.open(FileAdress);
     MyFile << FileData;
     MyFile.close();
-   
 }
 
 void Worker::Change_Worker_Profile() {
 
     cout<<"Please select to change each section."<<endl;
     int Account ;
-    cout<<"1.Change Work Address."<<endl<<"2.Change Home Address."<<endl<<"3.Change Mobile Number"<<endl<<"4.Change Phone Number"<<endl<<"5.Change Email."<<endl<<"6.Change Salary"<<endl<<"7.Back."<<endl;
+    cout<<"1.Change Work Address."<<endl<<"2.Change Home Address."<<endl<<"3.Change Mobile Number"<<endl<<"4.Change Phone Number"<<endl<<"5.Change Email"<<endl<<"6.Change Salary"<<endl<<"7.Back."<<endl;
     int al;
     cin>>al;
     string  GetString;
@@ -329,7 +316,6 @@ void Worker::Change_Worker_Profile() {
     else {
         cout<<"Error!!!"<<endl;
     }
-
     UpdateFile();
 }
 
@@ -389,5 +375,4 @@ void Worker::UpdateFile() {
     MyFile.open(FileAddress);
     MyFile << FileData;
     MyFile.close();
-
 }

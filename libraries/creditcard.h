@@ -1,4 +1,3 @@
-
 class Card {
     string Cardnumber;
     string Cvv2;
@@ -21,16 +20,12 @@ class Card {
     void setExpireD(string expired);
     void setPass1(string pass1);
     void setPass2(string pass2);
-   
     string getCardN();
     string getCVV2();
     string getExpireD();
     string getPass1();
     string getPass2();
-
- 
 };
-
 
 void Card::setCardN(string cardn) {
     Cardnumber = cardn;
@@ -62,8 +57,6 @@ string Card::getPass1() {
 string Card::getPass2() {
     return PassCode2;
 }
-
-
 
 void ShowCardMenu (string accnum) {
     Card NewCard;

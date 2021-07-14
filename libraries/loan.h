@@ -5,7 +5,6 @@ class Loan {
     string AccountNumber;
     string Id;
     public:
-    
     void varizvam();
     void setcodebranch(string codebranch);
     void setaccountnum(string accountnum);
@@ -25,9 +24,7 @@ class Loan {
     void setsit (int sit) {
         situation = sit;
     }
-    
 };
-
 
 void Loan::update() {
     if (situation < 2) situation++;
@@ -55,7 +52,6 @@ void Loan::update() {
 }
 
 void Loan::varizvam() {
-
     Account bank;
     Account dist;
 
@@ -85,7 +81,6 @@ void Loan::varizvam() {
 
     dist.UpdateFile(ExtractData("nnum", GetString));
 
-     
 }
 void Loan::setcodebranch(string codebranch) {
     Id = codebranch;
@@ -105,18 +100,6 @@ string Loan::getcodebranch() {
 string Loan::getaccountnum() {
     return AccountNumber;
 }
-
-/*Loan loan;
-ifstream LoanFile;
-LoanFile.open("Files/Loans/" + codebranch + accountnum);
-string GetString;
-LoanFile >> GetString;
-cout << GetString << endl;
-loan.setcodebranch(ExtractData("codebranch", GetString));
-loan.setaccountnum(ExtractData("accountnum", GetString));
-loan.setloanamount(stol(ExtractData("loanamount", GetString), nullptr, 10));
-loan.situationprocess(stoi(ExtractData("stn", GetString), nullptr, 10));
-LoanFile.close();*/
 
 void CreateLoan(string BankID, string AccountNum) {
     Loan NewLoan;

@@ -2,10 +2,7 @@ vector<Bank> branches;
 vector<Loan> loans;
 vector<Check> checks;
 
-
-
 void UpdateBanks () {
-
     branches.clear();
 
     ifstream BankList;
@@ -24,11 +21,9 @@ void UpdateBanks () {
         branches.push_back(newBank);
     }
     BankList.close();
-  
 }
 
 void UpdateLoans() {
-
     loans.clear();
 
     ifstream LoanList;
@@ -49,7 +44,6 @@ void UpdateLoans() {
         loans.push_back(newLoan);
         loanfile.close();
     }
-
     LoanList.close();
 }
 

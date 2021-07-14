@@ -5,7 +5,7 @@ using namespace std;
 #include"WriteData.h"
 #include"account.h"
 #include"creditcard.h"
-// #indelud"report.h"
+#include"report.h"
 #include"Check.h"
 class Bank {
     private:
@@ -14,9 +14,6 @@ class Bank {
     string Id;
     string BankAddress;
     vector<Account> BankAccounts;
-    // vector<Card> BankCards;
-    // vector<Person> BankPersons;
-    // vector<Worker> BankWorkers;
     Worker Boss();
     Account Self;
     public:
@@ -43,7 +40,7 @@ class Bank {
 
 void ShowRegisterMenuWorker (Bank bank, string type);
 
- Bank::Bank() {
+Bank::Bank() {
         
         vector<string> keys;
         vector<string> values;
@@ -51,7 +48,7 @@ void ShowRegisterMenuWorker (Bank bank, string type);
         
         this->BankName = "Sazandegan";
         
-        cout << "Enter Branch code: ";   
+        cout << "Enter Branch Code: ";   
         cin >> GetString;
         keys.push_back("id");
         values.push_back(GetString);
@@ -101,7 +98,6 @@ void ShowRegisterMenuWorker (Bank bank, string type);
         Self.setFoundDate(this->FoundDate);
 
 
-
         string filedata = CreateData(JsonKeys, JsonValues);
         string fileadress = "Files/Accounts/" + ("1000" + this->getid());
         ofstream Fin;
@@ -121,7 +117,7 @@ void ShowRegisterMenuWorker (Bank bank, string type);
         accvalues.push_back(to_string(Self.getAccountAmount()));
         accvalues.push_back(Self.getFoundDate());
 
-        system("clear");
+        system("cls");
 
         cout << "Register Boss:" << endl;
 

@@ -1,17 +1,14 @@
-
 #include"bank.h"
-
 void ShowUserMenu (Person User);
 
 pair<bool, Person> ShowLoginMenu () {
-   system("clear");
+   system("cls");
     cout << "User National Code : ";
     string UserName;
     cin >> UserName;
     cout << "User Password : ";
     string UserPass;
     cin >> UserPass;
-
     ifstream Myfile;
     Myfile.open("Files/Users/Credentials");
     string credentials;
@@ -31,7 +28,7 @@ pair<bool, Person> ShowLoginMenu () {
             for (; i < credentials.size(); i++)
                 password += credentials[i];
             if (password != UserPass) {
-                cout << "password does not match." << endl;
+                cout << "Password does not match." << endl;
                 cout << "Enter Something to continue:";
                 string c;
                 cin >> c;
@@ -56,7 +53,6 @@ pair<bool, Person> ShowLoginMenu () {
                 User.setEmail(ExtractData("email", GetString));
                 UserFile.close();
 
-            
                 return {true, User};
             }
         }
@@ -67,7 +63,7 @@ pair<bool, Person> ShowLoginMenu () {
 }
 
 void ShowRegisterMenu () {
-    system("clear");
+    system("cls");
     Person NewAccount;
     string GetString;
     vector<string> keys;
@@ -147,7 +143,6 @@ void ShowRegisterMenu () {
     MyFile.open(FileAdress);
     MyFile << FileData;
     MyFile.close();
-    //system("clear");
 
     cout << "Enter Password:";
     int password;
@@ -156,19 +151,12 @@ void ShowRegisterMenu () {
     MyFile.open(FileAdress, ios::out | ios::app);
     MyFile << NewAccount.getNcode() << "#" << password << "\n";
     MyFile.close();
-    /*
-        Set date of memebership
-    */
-
-    system("clear");
-
+    system("cls");
     ShowUserMenu(NewAccount);
-
 }
 
 void ShowRegisterMenuWorker (Bank bank, string type) {
-    
-    system("clear");
+    system("cls");
     string GetString;
     vector<string> keys;
     vector<string> values;
@@ -281,11 +269,10 @@ void ShowRegisterMenuWorker (Bank bank, string type) {
     MyFile.open(FileAddress, ios::out | ios::app);
     MyFile << NewWorker->getNcode() << "#" << password << "\n";
     MyFile.close();
-
 }
 
 pair<bool, Worker> ShowLoginMenuWorker () {
-   system("clear");
+   system("cls");
     cout << "AccountNumber : ";
     string UserName;
     cin >> UserName;
