@@ -13,6 +13,7 @@ class Loan {
     string getcodebranch();
     string getaccountnum();
     void update();
+    void refuse();
     Loan() {
         situation = 0;
         return;
@@ -29,6 +30,30 @@ class Loan {
 void Loan::update() {
     if (situation < 2) situation++;
     if (situation == 2) varizvam();
+    ofstream LoanFile;
+    LoanFile.open("Files/Loans/" + (this->getcodebranch() + this->getaccountnum()));
+    vector<string> keys;
+    vector<string> values;
+
+    keys.push_back("codebranch");
+    values.push_back(this->getcodebranch());
+    
+    keys.push_back("accountnum");
+    values.push_back(this->getaccountnum());
+    
+    keys.push_back("loanamount");
+    values.push_back(to_string(this->getloanamount()));
+    
+     keys.push_back("sit");
+    values.push_back(to_string(situation));
+   
+    string FileData = CreateData(keys, values);
+    LoanFile << FileData;
+    LoanFile.close();
+}
+
+void Loan::refuse() {
+    situation = -1;
     ofstream LoanFile;
     LoanFile.open("Files/Loans/" + (this->getcodebranch() + this->getaccountnum()));
     vector<string> keys;

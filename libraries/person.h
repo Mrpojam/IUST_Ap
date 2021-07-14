@@ -66,6 +66,8 @@ class Worker : public Person {
     string date_of_employment;
     string salary;
     public :
+        string type;
+        string bank;
     void setEID (string eid);
     void setDempl(string dempl);
     void setSal(string sal);
@@ -79,6 +81,7 @@ class Worker : public Person {
     string getDempl();
     string getSal();
     void UpdateFile();
+    void UpdatePosition (string type);
 };
 
 void Person::setFname(string fname) {
@@ -218,6 +221,66 @@ void Person::ChangeProfile() {
     UpdateFile();
 }
 
+void Worker::UpdatePosition(string type) {
+      vector<string> keys;
+    vector<string> values;
+    this->type = type;
+    keys.push_back("fName");
+    values.push_back(this->getFname());
+    
+    keys.push_back("lName");
+    values.push_back(this->getLname());
+
+    keys.push_back("type");
+    values.push_back(type);
+
+    keys.push_back("nCode");
+    values.push_back(this->getNcode());
+
+    keys.push_back("BirthCerNum");
+    values.push_back(this->getBCnum());
+    
+    keys.push_back("workAddrr");
+    values.push_back(this->getWaddress());
+
+    keys.push_back("homeAddrr");
+    values.push_back(this->getHaddress());
+
+    keys.push_back("mobile");
+    values.push_back(this->getMnum());
+
+    keys.push_back("phone");
+    values.push_back(this->getPnum());
+
+    keys.push_back("father");
+    values.push_back(this->getFathname());
+
+    keys.push_back("birth");
+    values.push_back(this->getBD());
+
+    keys.push_back("email");
+    values.push_back(this->getEmail());
+
+    keys.push_back("id");
+    values.push_back(this->getEID());
+  
+    keys.push_back("empdate");
+    values.push_back(this->getDempl());
+
+    keys.push_back("salary");
+    values.push_back(this->getSal());
+
+    string FileData = CreateData(keys, values);
+
+    string FileAddress = "Files/Workers/" + this->getNcode();
+    cout << FileData << endl;
+    ofstream MyFile;
+    MyFile.open(FileAddress);
+    MyFile << FileData;
+    MyFile.close();
+    
+}
+
 void Person::UpdateFile() {
     vector<string> keys;
     vector<string> values;
@@ -225,9 +288,9 @@ void Person::UpdateFile() {
     keys.push_back("fName");
     values.push_back(this->first_name);
     
-    keys.push_back("lName");
-    
+    keys.push_back("lName");    
     values.push_back(this->last_name);
+
 
     keys.push_back("nCode");
     values.push_back(this->national_code);
@@ -239,10 +302,10 @@ void Person::UpdateFile() {
     values.push_back(this->work_address);
 
     keys.push_back("homeAddrr");
-    values.push_back(this->work_address);
+    values.push_back(this->home_address);
 
     keys.push_back("mobile");
-    values.push_back(this->home_address);
+    values.push_back(this->mobile_number);
 
     keys.push_back("phone");
     values.push_back(this->phone_number);
@@ -324,12 +387,19 @@ void Worker::UpdateFile() {
     vector<string> keys;
     vector<string> values;
 
+    keys.push_back("bankid");
+    values.push_back(this->bank);
+
+    keys.push_back("type");
+    values.push_back(this->type);
+
     keys.push_back("fName");
     values.push_back(this->getFname());
     
     keys.push_back("lName");
     
     values.push_back(this->getLname());
+
 
     keys.push_back("nCode");
     values.push_back(this->getNcode());
@@ -369,7 +439,7 @@ void Worker::UpdateFile() {
 
     string FileData = CreateData(keys, values);
 
-    string FileAddress = "/Files/Workers/" + this->getNcode();
+    string FileAddress = "Files/Workers/" + this->getNcode();
   
     ofstream MyFile;
     MyFile.open(FileAddress);

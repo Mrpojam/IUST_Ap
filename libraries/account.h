@@ -13,7 +13,7 @@ class Account {
     }
     Account() {
         return;
-    };
+    }
      void setAccountNumber(string accn);
      void setAccountAmount(long long accam);
      void setFoundDate(string fdt);
@@ -36,7 +36,7 @@ class Account {
         }
         this->AccountAmount -= _Amount;
     }
-
+    
     void Withdraw (long long _Amount) {
         this->AccountAmount += _Amount;
     }

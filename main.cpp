@@ -17,7 +17,7 @@ void ShowUserMenu (Person User) {
             ShowAccountMenu(User);
         }
         else if (command==3) {
-            User.ChangeProfile()
+            User.ChangeProfile();
         }
         else if (command==4) {
                 system("cls");
@@ -130,10 +130,17 @@ void ShowCounterManager (Worker User2) {
         UpdateLoans();
     }
     else if (command4==3) {
-      //  Change_Worker_Profile();
+        User2.ChangeProfile();
     }
     else if (command4==4) {
-
+        system("cls");
+        cout << "1.Boss" << endl;
+        cout << "2.Counter Manager" << endl;
+        cout << "3.Cashier" << endl;
+        int c;
+        cin >> c;
+        string type[] = {"Boss", "Counter_Manager", "Cashier"};
+        User2.UpdatePosition(type[c-1]);
     }
     else if (command4==5) {
         return ;
@@ -141,6 +148,7 @@ void ShowCounterManager (Worker User2) {
     else {
         cout<< "Error!!!" <<endl;
     }
+    
 }
 
 void ShowBossMenu (Worker User1) {
@@ -153,7 +161,6 @@ void ShowBossMenu (Worker User1) {
         for (int i = 0; i < loans.size(); i++) {
             if (loans[i].getSit() == 1) BossLoans.push_back(loans[i]);
         }
-        cout << BossLoans.size() << endl;
         for (int i = 0; i < BossLoans.size(); i++)
             cout << i+1 << ")" << "Account:" << BossLoans[i].getaccountnum() << " Bank:" << BossLoans[i].getcodebranch() << " Amount:" << BossLoans[i].getloanamount() << endl; 
 
@@ -164,13 +171,30 @@ void ShowBossMenu (Worker User1) {
         UpdateLoans();
     }
     else if (command3==2) {
-
+        vector<Loan> BossLoans;
+        for (int i = 0; i < loans.size(); i++) {
+            if (loans[i].getSit() == 1) BossLoans.push_back(loans[i]);
+        }
+         for (int i = 0; i < BossLoans.size(); i++)
+            cout << i+1 << ")" << "Account:" << BossLoans[i].getaccountnum() << " Bank:" << BossLoans[i].getcodebranch() << " Amount:" << BossLoans[i].getloanamount() << endl; 
+        cout << "Choose a loan to accept:";
+        int choice;
+        cin >> choice;
+        BossLoans[choice-1].refuse();
+        UpdateLoans();
     }
     else if (command3==3) {
-        //Change_Worker_Profile();
+        User1.ChangeProfile();
     }
     else if (command3==4) {
-
+system("cls");
+        cout << "1.Boss" << endl;
+        cout << "2.Counter Manager" << endl;
+        cout << "3.Cashier" << endl;
+        int c;
+        cin >> c;
+        string type[] = {"Boss", "Counter_Manager", "Cashier"};
+        User1.UpdatePosition(type[c-1]);
     }
     else if (command3==5) {
         return ;
@@ -232,15 +256,20 @@ void ShowCashier (Worker User3) {
                 }
                 break;
             }
-            int x;
-            cin >> x;
         }
     }
     else if (command5==2) {
-       // Change_Worker_Profile();
+        User3.ChangeProfile();
     }
     else if (command5==3) {
-
+        system("cls");
+        cout << "1.Boss" << endl;
+        cout << "2.Counter Manager" << endl;
+        cout << "3.Cashier" << endl;
+        int c;
+        cin >> c;
+        string type[] = {"Boss", "Counter_Manager", "Cashier"};
+        User3.UpdatePosition(type[c-1]);
     }
     else if (command5==4) {
         return ;
@@ -251,6 +280,89 @@ void ShowCashier (Worker User3) {
     }
 }
 
+void ShowBankServices () {
+    int command7;
+    cout << "####Bank Services####" << endl;
+    cout  <<endl<< "1.Search for people(4 ways)" <<endl<< "2.Find cards connected to the account" <<endl<< "3.Find accounts connected to the card" <<endl << "4.Find a accounts of a person" << endl <<"5.Find a person cards" << endl << "6.Show todays birthdays" << endl << "7.Find Persons with higher amount"<<endl<< "8.Back" <<endl;
+    cin>>command7;
+    if (command7==1) {
+        system("cls");
+        cout << "1.By Name" << endl << "2.Mobile Number" << endl << "3.Account Number" << endl << "4.Card"<< endl;
+        int c;
+        cout << "Enter your choice : ";
+        cin >> c;
+        if (c == 1) {
+            cout << "Enter Name : ";
+            string fname;
+            cin >> fname;
+            FindPersonByName(fname);
+        } else if (c == 2) {
+            cout << "Enter Mobile Number : ";
+            string mob;
+            cin >> mob;
+            FindPersonByMobile(mob);
+
+        } else if (c == 3) {
+            cout << "Enter Account Number : ";
+            string num;
+            cin >> num;
+            FindPersonByAccount(num);
+        }else if (c == 4) {
+            cout << "Enter Card Number : ";
+            string num;
+            cin >> num;
+            ShowPersonByCard(num);
+        }
+
+    }
+    else if (command7==2) {
+        system("cls");
+        cout << "Enter Account Number : ";
+        string num;
+        cin >> num;
+        FindCardsByAccount(num);
+    }
+    else if (command7==3) {
+        system("cls");
+        cout << "Enter Card Number : ";
+        string num;
+        cin >> num;
+        FindAccountsByCard(num);
+    }
+    else if (command7==4) {
+        system("cls");
+        cout << "Enter National Code : ";
+        string num;
+        cin >> num;
+        FindAccountsByPerson(num);
+    }
+    else if (command7==5) {
+        system("cls");
+        cout << "Enter National Code : ";
+        string num;
+        cin >> num;
+        FindCardsByPerson(num);
+    }
+    else if (command7 == 6) {
+        ShowTodaysBirthDay();
+    }else if (command7 == 7) {
+        system("cls");
+        cout << "Enter Amount : ";
+        long long am;
+        cin >> am;
+        ShowUsersWithHigherAmount(am);
+    }
+    else if (command7==8) {
+        return ;
+    }
+    else {
+        cout<<"Error!!!"<<endl;
+    }
+    string s;
+    cout << "Enter something to continue : ";
+    cin >> s;
+}
+
 int main () {
 
     UpdateBanks();
@@ -258,7 +370,8 @@ int main () {
     UpdateChecks();
     while (true) {
         system("cls");
-        cout << "1.Login/Register Users\n2.Login/Register Workers\n3.Create New bank branch\n" << endl;
+        cout << "#########KhodSazandegan Bank#########" << endl;
+        cout << "1.Login/Register Users\n2.Login/Register Workers\n3.Create New bank branch\n4.Bank Services" << endl;
 
         int command;
         cout << "Enter command number :";
@@ -328,6 +441,8 @@ int main () {
                 Bank *newBank = new Bank();
                 branches.push_back(*newBank);
                 system("cls");
+        }else if (command == 4) {
+            ShowBankServices();
         }
     }   
 

@@ -31,7 +31,7 @@ void FindCardsByAccount (string accnum) {
         string accountnumber = ExtractData("account", data); 
         if (accountnumber == accnum) {
             cout << cnt++ << ")" << cardN << endl;
-            report << cnt++ << ")" << cardN << endl; 
+            report << cnt << ")" << cardN << endl; 
             report << "---------" << endl;
         }
         facc.close();
@@ -52,7 +52,7 @@ void ShowUserInfo (Person User) {
 
 void FindCardsByPerson (string ncode) {
     ifstream accounts;
-        ofstream report;
+    ofstream report;
 
     accounts.open("Files/Accounts/All");
     string acc;
@@ -64,8 +64,32 @@ void FindCardsByPerson (string ncode) {
             if (acc[i] == '#') break;
             num += acc[i];
         }
-        FindCardsByAccount(num);
+        if (ncode == num)
+            FindCardsByAccount(acc.substr(i+1, acc.size()));
     }
+}
+
+void FindAccountsByPerson (string ncode) {
+    ifstream accounts;
+    ofstream report;
+    report.open("Files/Reports");
+    accounts.open("Files/Accounts/All");
+    string acc;
+
+    while (accounts >> acc) {
+         string num = "";
+        int i = 0;
+        for (; i < acc.size(); i++) {
+            if (acc[i] == '#') break;
+            num += acc[i];
+        }
+        i++;
+        if (ncode == num) {
+            cout << acc.substr(i, acc.size()) << endl;
+            report << acc.substr(i, acc.size()) << endl;
+        }
+    }
+    report.close();
 }
 
 void FindPersonByName (string fname) {
@@ -89,22 +113,23 @@ void FindPersonByName (string fname) {
         user.open("Files/Users/" + username);
         string data;
         user >> data;
-        if (ExtractData("fname", data) == fname) {        
-            cout << "First Name: " << ExtractData("fname", data) << endl;
-            cout << "Last Name: " << ExtractData("lname", data) << endl;
+        if (ExtractData("fName", data) == fname) {        
+            cout << "First Name: " << ExtractData("fName", data) << endl;
+            cout << "Last Name: " << ExtractData("lName", data) << endl;
             cout << "National Code: " << ExtractData("nCode", data) << endl;
             cout << "Home Address: " << ExtractData("homeAddrr", data) << endl;
             cout << "Birthday: " << ExtractData("birth", data) << endl;
             cout << "Email: " << ExtractData("email", data) << endl;
             
 
-            report << "First Name: " << ExtractData("fname", data) << endl;
-            report << "Last Name: " << ExtractData("lname", data) << endl;
+            report << "First Name: " << ExtractData("fName", data) << endl;
+            report << "Last Name: " << ExtractData("lName", data) << endl;
             report << "National Code: " << ExtractData("nCode", data) << endl;
             report << "Home Address: " << ExtractData("homeAddrr", data) << endl;
             report << "Birthday: " << ExtractData("birth", data) << endl;
             report << "Email: " << ExtractData("email", data) << endl;
                         report << "--------------" << endl;
+            return;
 
         }
     }
@@ -131,8 +156,8 @@ void FindPersonByMobile (string mob) {
         string data;
         user >> data;
         if (ExtractData("mobile", data) == mob) {        
-            cout << "First Name: " << ExtractData("fname", data) << endl;
-            cout << "Last Name: " << ExtractData("lname", data) << endl;
+            cout << "First Name: " << ExtractData("fName", data) << endl;
+            cout << "Last Name: " << ExtractData("lName", data) << endl;
             cout << "National Code: " << ExtractData("nCode", data) << endl;
             cout << "Home Address: " << ExtractData("homeAddrr", data) << endl;
             cout << "Birthday: " << ExtractData("birth", data) << endl;
@@ -158,7 +183,7 @@ void FindPersonByAccount (string acc) {
 
     report.open("Files/Reports", ios::app);
 
-    accfile.open("File/Accounts/" + acc);
+    accfile.open("Files/Accounts/" + acc);
     string accdata;
     accfile >> accdata;
     string ncode = ExtractData("nnum", accdata);
@@ -167,17 +192,16 @@ void FindPersonByAccount (string acc) {
     user.open("Files/Users/" + ncode);
     string data;
     user >> data;
-
-    cout << "First Name: " << ExtractData("fname", data) << endl;
-    cout << "Last Name: " << ExtractData("lname", data) << endl;
+    cout << "First Name: " << ExtractData("fName", data) << endl;
+    cout << "Last Name: " << ExtractData("lName", data) << endl;
     cout << "National Code: " << ExtractData("nCode", data) << endl;
     cout << "Home Address: " << ExtractData("homeAddrr", data) << endl;
     cout << "Birthday: " << ExtractData("birth", data) << endl;
     cout << "Email: " << ExtractData("email", data) << endl;
 
 
-    report << "First Name: " << ExtractData("fname", data) << endl;
-    report << "Last Name: " << ExtractData("lname", data) << endl;
+    report << "First Name: " << ExtractData("fName", data) << endl;
+    report << "Last Name: " << ExtractData("lName", data) << endl;
     report << "National Code: " << ExtractData("nCode", data) << endl;
     report << "Home Address: " << ExtractData("homeAddrr", data) << endl;
     report << "Birthday: " << ExtractData("birth", data) << endl;
@@ -188,9 +212,7 @@ void FindPersonByAccount (string acc) {
 }
 
 void ShowTodaysBirthDay() {
-    string year, month, day;
-    cout << "Enter Year:";
-    cin >> year;
+    string  month, day;
     cout << "Enter Month:";
     cin >> month;
     cout << "Enter Day";
@@ -212,14 +234,15 @@ report.open("Files/Reports", ios::app);
         ifstream userFile;
         userFile.open("Files/Users/" + username);
         string data;
+        userFile >> data;
         string birth = ExtractData("birth", data); 
-        if (year + '-' + month + '-' + day == birth) {
-            cout << "Firstname " << ExtractData("fname", data) << endl;
-            cout << "Lastname " << ExtractData("lname", data) << endl;
+        if (month + '-' + day == birth) {
+            cout << "Firstname " << ExtractData("fName", data) << endl;
+            cout << "Lastname " << ExtractData("lName", data) << endl;
             cout << "National Code " << ExtractData("nCode", data) << endl;
             cout << "--------------" << endl;
-            report << "Firstname " << ExtractData("fname", data) << endl;
-            report << "Lastname " << ExtractData("lname", data) << endl;
+            report << "Firstname " << ExtractData("fName", data) << endl;
+            report << "Lastname " << ExtractData("lName", data) << endl;
             report << "National Code " << ExtractData("nCode", data) << endl;
             report << "--------------" << endl;
         }  
@@ -258,7 +281,7 @@ void ShowUsersWithHigherAmount (long long amount) {
                 accfile.open("Files/Accounts/" + accnum);
                 string data;
                 accfile >> data;
-                allamount += stol(ExtractData("amount", data), nullptr, 10);
+                allamount += (long long)stol(ExtractData("accam", data), nullptr, 10);
                 accfile.close();
             }   
         }
@@ -272,4 +295,14 @@ void ShowUsersWithHigherAmount (long long amount) {
     }
     creds.close();
     report.close();
+}
+
+
+void ShowPersonByCard (string card) {
+    ifstream faccbycard;
+    faccbycard.open("Files/Cards/" + card);
+    string c;
+    faccbycard >> c;
+    string account = ExtractData("account", c);
+    FindPersonByAccount(account);
 }

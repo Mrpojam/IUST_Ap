@@ -165,10 +165,10 @@ void ShowRegisterMenuWorker (Bank bank, string type) {
 
     keys.push_back("bankid");
     values.push_back(bank.getid());
-
+    NewWorker->bank = bank.getid();
     keys.push_back("type");
     values.push_back(type);
-
+    NewWorker->type = type; 
     cout << "First Name:";
     cin >> GetString;
     keys.push_back("fName");
